@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="cmureportUI:war">
+    <output-path>$PROJECT_DIR$/cmureportUI/target</output-path>
+    <root id="archive" name="cmu-report-UI.war">
+      <element id="artifact" artifact-name="cmureportUI:war exploded" />
+    </root>
+  </artifact>
+</component>

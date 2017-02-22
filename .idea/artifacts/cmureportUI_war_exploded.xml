@@ -1,0 +1,107 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="cmureportUI:war exploded">
+    <output-path>$PROJECT_DIR$/cmureportUI/target/cmu-report-UI</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="cmureportUI" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.20.0-GA" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
+          <element id="library" level="project" name="Maven: org.jboss:jandex:2.0.0.Final" />
+          <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.3.0" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.1.Final" />
+          <element id="archive" name="amadeus-cmu-report-code-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="core" />
+          </element>
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.3" />
+          <element id="library" level="project" name="Maven: org.springframework.ws:spring-ws-core:2.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.ws:spring-xml:2.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-oxm:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="archive" name="jira-consumer-config-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="jiraconsumer-config" />
+          </element>
+          <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.9.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.11.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.12" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.6" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:5.1.0.Final" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.10" />
+          <element id="library" level="project" name="Maven: com.rentalcars.marketingreports:ftpreports:5.0.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.0" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.12" />
+          <element id="library" level="project" name="Maven: com.jcraft:jsch:0.1.53" />
+          <element id="library" level="project" name="Maven: commons-net:commons-net:3.3" />
+          <element id="library" level="project" name="Maven: javax.mail:javax.mail-api:1.5.4" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.4" />
+          <element id="library" level="project" name="Maven: com.rentalcars.marketingreports:hale:0.2.10" />
+          <element id="library" level="project" name="Maven: com.atlassian.httpclient:atlassian-httpclient-plugin:0.23.3" />
+          <element id="library" level="project" name="Maven: com.atlassian.httpclient:atlassian-httpclient-api:0.23.3" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpasyncclient-cache:4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpasyncclient:4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient-cache:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.4.1" />
+          <element id="library" level="project" name="Maven: com.atlassian.jira:jira-rest-java-client-api:4.0.0" />
+          <element id="library" level="project" name="Maven: com.atlassian.util.concurrent:atlassian-util-concurrent:2.4.2" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:1.6" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:10.0.1" />
+          <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:1.3.9" />
+          <element id="library" level="project" name="Maven: com.atlassian.jira:jira-rest-java-client-core:3.0.0" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-client:1.5" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.5" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-json:1.5" />
+          <element id="library" level="project" name="Maven: org.codehaus.jettison:jettison:1.1" />
+          <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.3" />
+          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.2.2" />
+          <element id="library" level="project" name="Maven: javax.xml.stream:stax-api:1.0-2" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.5.5" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.5.5" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.5.5" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-xc:1.5.5" />
+          <element id="library" level="project" name="Maven: com.atlassian.httpclient:atlassian-httpclient-apache-httpcomponents:0.13.2" />
+          <element id="library" level="project" name="Maven: com.atlassian.sal:sal-api:2.7.0" />
+          <element id="library" level="project" name="Maven: com.atlassian.event:atlassian-event:2.2.0" />
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.4" />
+          <element id="library" level="project" name="Maven: net.oauth.core:oauth-consumer:20100527" />
+          <element id="library" level="project" name="Maven: net.oauth.core:oauth:20100527" />
+          <element id="library" level="project" name="Maven: com.google.oauth-client:google-oauth-client:1.22.0" />
+          <element id="library" level="project" name="Maven: com.google.http-client:google-http-client:1.22.0" />
+          <element id="library" level="project" name="Maven: org.json:json:20160810" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.0-b01" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="cmureportUI/web/Web" />
+    </root>
+  </artifact>
+</component>

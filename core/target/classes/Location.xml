@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.uom.jirareport.model.RCLocation" table="x">
+        <id name="id" type="string">
+            <column name="id" sql-type="string" not-null="true"/>
+            <generator class="assigned"/>
+        </id>
+    </class>
+
+    <sql-query name="translateLocationUTF8">
+        <return alias="translation" class="com.alltria.bcrs.utility.Translate"/>
+        <![CDATA[
+			select CONVERT(CAST(CONVERT(c2.location USING latin1) AS BINARY) USING utf8) id from
+				titan1.location_trans_cache c1,titan1.location_trans_cache c2 where c1.lang=:source and c1.location=:name
+				and c1.id=c2.id and c2.lang=:dest limit 1
+        ]]>
+    </sql-query>
+
+</hibernate-mapping>

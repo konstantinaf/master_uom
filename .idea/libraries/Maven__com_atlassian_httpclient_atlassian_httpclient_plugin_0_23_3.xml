@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.atlassian.httpclient:atlassian-httpclient-plugin:0.23.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/com/atlassian/httpclient/atlassian-httpclient-plugin/0.23.3/atlassian-httpclient-plugin-0.23.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/com/atlassian/httpclient/atlassian-httpclient-plugin/0.23.3/atlassian-httpclient-plugin-0.23.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/com/atlassian/httpclient/atlassian-httpclient-plugin/0.23.3/atlassian-httpclient-plugin-0.23.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
