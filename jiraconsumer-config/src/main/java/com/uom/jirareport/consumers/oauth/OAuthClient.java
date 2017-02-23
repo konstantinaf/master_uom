@@ -36,6 +36,8 @@ public class OAuthClient {
     private final JiraOAuthClient jiraOAuthClient;
     @Getter
     private String authorizationUrl;
+    @Getter
+    private String accessToken;
 
     public OAuthClient(JiraOAuthClient jiraOAuthClient, JiraConsumer jiraConsumer) {
         try {
@@ -106,13 +108,14 @@ public class OAuthClient {
      */
     private Optional<Exception> handleGetAccessToken(List<String> arguments) {
         Map<String, String> properties = propertiesClient.getPropertiesOrDefaults();
-        String tmpToken = properties.get(REQUEST_TOKEN);
-        String secret = arguments.get(0);
+        String tmpToken = arguments.get(0);
+        String secret = arguments.get(1);
 
         try {
-            String accessToken = jiraOAuthClient.getAccessToken(tmpToken, secret, properties.get(CONSUMER_KEY), properties.get(PRIVATE_KEY));
+            accessToken = jiraOAuthClient.getAccessToken(tmpToken, secret, jiraConsumer.getConsumerKey(), jiraConsumer.getPrivateKey());
             properties.put(ACCESS_TOKEN, accessToken);
             properties.put(SECRET, secret);
+
             propertiesClient.savePropertiesToFile(properties);
             return Optional.empty();
         } catch (Exception e) {

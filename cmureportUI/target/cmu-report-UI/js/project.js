@@ -1,11 +1,25 @@
 var params = getQueryParams(location.search);
 
-var app = angular.module('projects-app',[]);
+var app = angular.module('projectApp', []);
+        app.controller('projectController', function($scope, $http) {
+        // $scope.oauthToken = params.oauth_token;
+        // $scope.oauthVerifier = params.oauth_verifier;
+        var data = {
+                oauthToken:params.oauth_token,
+                oauthVerifier: params.oauth_verifier
+        };
 
-app.controller("JiraReportController",
-     ['$scope', function($scope) {
-            $scope.greeting = 'Hola!';
-}]);
+        var config = {
+                params: data,
+                headers : {'Accept' : 'application/json'}
+        };
+
+        $http.get('/jreport/projects/', config).then(function(response) {
+                $scope.projects = response;
+        }, function(response) {
+                alert('Error');
+        });
+});
 
 
 

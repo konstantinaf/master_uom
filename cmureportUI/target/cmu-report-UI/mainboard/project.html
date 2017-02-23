@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html ng-app>
+<html>
 <head>
     <title>Hello World, AngularJS - ViralPatel.net</title>
-    <script type="text/javascript"
-            src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript" src="/js/project.js"></script>
 </head>
 <body>
 
-<div ng-app="projects-app" ng-controller="JiraReportController">
-    Name:
-    <input type="text" ng-model="greeting" />
-    <br />
-    <br />
-</div>
+<div ng-app="projectApp" ng-controller="projectController">
 
+    OAuth Token: <input type="text" ng-model="oauthToken"><br>
+    OAuth Verifier: <input type="text" ng-model="oauthVerifier"><br>
+    <br>
+    Together: {{oauth_token + " " + oauth_verifier}}
+
+</div>
 
 </body>
 </html>

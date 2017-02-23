@@ -19,7 +19,7 @@ $(document).ready(function () {
         
         var jqxhr = $.get("/jreport/oauth?url=" + extractDomain(decodeURIComponent(url)), function (jsonRes) {
                 if (jsonRes.data) {
-                    location.href = window.open(jsonRes.data, 'jiraWindow');
+                    window.location.href = jsonRes.data;
                 }
 
                 else if (jsonRes.errorMessage) {

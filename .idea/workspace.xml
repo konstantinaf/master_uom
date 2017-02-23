@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0c660091-548a-47f7-ad37-3051df9981d6" name="Default" comment="" />
+    <list default="true" id="0c660091-548a-47f7-ad37-3051df9981d6" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI.war" afterPath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI.war" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/WEB-INF/lib/amadeus-cmu-report-code-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/WEB-INF/lib/amadeus-cmu-report-code-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/WEB-INF/lib/jira-consumer-config-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/WEB-INF/lib/jira-consumer-config-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/target/amadeus-cmu-report-code-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/core/target/amadeus-cmu-report-code-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/target/classes/com/uom/jirareport/controller/JiraReportController.class" afterPath="$PROJECT_DIR$/core/target/classes/com/uom/jirareport/controller/JiraReportController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/target/classes/com/uom/jirareport/consumers/oauth/OAuthClient.class" afterPath="$PROJECT_DIR$/jiraconsumer-config/target/classes/com/uom/jirareport/consumers/oauth/OAuthClient.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/target/classes/com/uom/jirareport/consumers/services/JiraConsumerService.class" afterPath="$PROJECT_DIR$/jiraconsumer-config/target/classes/com/uom/jirareport/consumers/services/JiraConsumerService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/target/classes/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.class" afterPath="$PROJECT_DIR$/jiraconsumer-config/target/classes/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/target/jira-consumer-config-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/jiraconsumer-config/target/jira-consumer-config-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js" afterPath="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js" afterPath="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/project.html" afterPath="$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/project.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/js/home.js" afterPath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/js/home.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/js/project.js" afterPath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/js/project.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/mainboard/project.html" afterPath="$PROJECT_DIR$/cmureportUI/target/cmu-report-UI/mainboard/project.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmureportUI/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/cmureportUI/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java" afterPath="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java" afterPath="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java" afterPath="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java" />
+    </list>
     <ignored path="amadeus-cmu-report.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -29,11 +52,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="home.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js">
+      <file leaf-file-name="JiraReportController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="35" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="35" />
+            <state relative-caret-position="337">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -42,28 +65,90 @@
       <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="27" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="27" />
+            <state relative-caret-position="165">
+              <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/project.html">
+      <file leaf-file-name="JiraOAuthGetAccessToken.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthGetAccessToken.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+            <state relative-caret-position="210">
+              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JiraReportController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java">
+      <file leaf-file-name="JiraOAuthClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="37" column="36" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="36" />
+            <state relative-caret-position="217">
+              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JiraOAuthTokenFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthTokenFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OAuthClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropertiesClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/PropertiesClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JiraConsumerServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JiraConsumerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasicProject.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/com/atlassian/jira/jira-rest-java-client-api/4.0.0/jira-rest-java-client-api-4.0.0.jar!/com/atlassian/jira/rest/client/api/domain/BasicProject.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -82,6 +167,12 @@
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -124,24 +215,24 @@
         <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/pom.xml" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/ServiceResponse.java" />
-        <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/JiraConsumer.java" />
-        <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/JiraConsumerKey.java" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dao/JiraConsumerRepository.java" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java" />
-        <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java" />
         <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/project.jsp" />
         <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/projects.js" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthTokenFactory.java" />
         <option value="$PROJECT_DIR$/cmureportUI/pom.xml" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/projects.js" />
-        <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js" />
         <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/ProjectDTO.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java" />
-        <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js" />
         <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/project.html" />
+        <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js" />
+        <option value="$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js" />
+        <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java" />
+        <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java" />
+        <option value="$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java" />
       </list>
     </option>
   </component>
@@ -287,7 +378,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
@@ -432,11 +522,12 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../apache-tomcat-8.5.11/webapps" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
@@ -444,6 +535,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20485744" />
     <property name="FullScreen" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1087,18 +1179,20 @@
       <workItem from="1487609241277" duration="3569000" />
       <workItem from="1487669478551" duration="15383000" />
       <workItem from="1487772365982" duration="12273000" />
+      <workItem from="1487790331402" duration="1050000" />
+      <workItem from="1487842260141" duration="5491000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72928000" />
+    <option name="totallyTimeSpent" value="79469000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39759037" sideWeight="0.5171674" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2274678" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1108,21 +1202,21 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39759037" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39759037" sideWeight="0.4828326" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32771084" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34578314" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34578314" sideWeight="0.65736765" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32771084" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29613733" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32771084" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32771084" sideWeight="0.45708156" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1161,7 +1255,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java</url>
-          <line>137</line>
+          <line>140</line>
           <properties />
           <option name="timeStamp" value="20" />
         </line-breakpoint>
@@ -1179,12 +1273,72 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java</url>
-          <line>40</line>
+          <line>42</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthTokenFactory.java</url>
+          <line>46</line>
+          <properties />
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java</url>
+          <line>71</line>
+          <properties />
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java</url>
+          <line>109</line>
+          <properties />
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java</url>
+          <line>75</line>
+          <properties />
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java</url>
+          <line>88</line>
+          <properties />
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java</url>
+          <line>87</line>
+          <properties />
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java</url>
+          <line>114</line>
+          <properties />
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="41" />
+      <option name="time" value="53" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1193,27 +1347,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar!/org/springframework/beans/factory/support/SimpleInstantiationStrategy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar!/org/springframework/beans/factory/support/ConstructorResolver.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="461" column="0" selection-start-line="461" selection-start-column="0" selection-end-line="461" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar!/org/springframework/beans/factory/support/AbstractAutowireCapableBeanFactory.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="320" column="0" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar!/org/springframework/beans/factory/support/DefaultSingletonBeanRegistry.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1251,7 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
           <caret line="15" column="58" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1259,7 +1391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1286,13 +1417,6 @@
         <state relative-caret-position="295">
           <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthGetAccessToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1338,13 +1462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -1356,7 +1473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1364,9 +1480,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1374,15 +1487,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1725">
           <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1390,23 +1494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-19">
-          <caret line="27" column="57" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthGetTemporaryToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1414,10 +1501,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-          <folding>
-            <element signature="e#478#479#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1425,23 +1508,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/PropertiesClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="16" column="43" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="138" column="32" selection-start-line="138" selection-start-column="32" selection-end-line="138" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1449,15 +1515,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="21" column="57" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthTokenFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-233">
-          <caret line="61" column="25" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1473,7 +1530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1481,7 +1537,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1489,7 +1544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="62" column="2" selection-start-line="62" selection-start-column="2" selection-end-line="62" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1497,17 +1551,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1515,9 +1558,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="10" column="23" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1525,7 +1565,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1533,38 +1572,135 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthGetTemporaryToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java">
+    <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="37" column="36" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="35" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="27" />
+        <state relative-caret-position="165">
+          <caret line="11" column="61" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/mainboard/project.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+        <state relative-caret-position="150">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/js/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/com/atlassian/jira/jira-rest-java-client-api/4.0.0/jira-rest-java-client-api-4.0.0.jar!/com/atlassian/jira/rest/client/api/domain/Project.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../Java/apache-maven/.m2/repository/com/atlassian/jira/jira-rest-java-client-api/4.0.0/jira-rest-java-client-api-4.0.0.jar!/com/atlassian/jira/rest/client/api/domain/BasicProject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/src.zip!/java/util/function/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/PropertiesClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmureportUI/src/main/webapp/js/project.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthGetAccessToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthTokenFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/uom/jirareport/controller/JiraReportController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>

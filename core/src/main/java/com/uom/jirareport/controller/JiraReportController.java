@@ -13,6 +13,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,12 +39,15 @@ public class JiraReportController {
 
     @RequestMapping(value="/projects", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ProjectDTO getJiraProjects(HttpServletRequest request) throws Exception {
-        System.out.println("Oauth token " + request.getParameter("oauth_token"));
-        System.out.println("Oauth verifier " + request.getParameter("oauth_verifier"));
+    public List<ProjectDTO> getJiraProjects(HttpServletRequest request) throws Exception {
+        System.out.println("Oauth token " + request.getParameter("oauthToken"));
+        System.out.println("Oauth verifier " + request.getParameter("oauthVerifier"));
 
+        amadeusCityService.getDomainProjectsFromJira(request.getParameter("oauthToken"),request.getParameter("oauthVerifier") );
         ProjectDTO.ProjectBuilder builder = new ProjectDTO.ProjectBuilder("COOK", "Cook Project");
 
-        return builder.build();
+        List<ProjectDTO> projectDTOs = new ArrayList<>();
+        projectDTOs.add(builder.build());
+        return projectDTOs;
     }
 }
