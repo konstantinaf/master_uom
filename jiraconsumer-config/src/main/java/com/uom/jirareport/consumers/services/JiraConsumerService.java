@@ -1,6 +1,6 @@
 package com.uom.jirareport.consumers.services;
 
-import com.atlassian.jira.rest.client.api.domain.Project;
+import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 
 import java.util.List;
@@ -12,5 +12,5 @@ public interface JiraConsumerService {
 
     ServiceResponse getAuthorizationUrl(String url) throws Exception;
 
-    List<Project> getDomainProjectsFromJira(String oauthToken, String oauthVerifier) throws Exception;
+    List<ProjectDTO> getDomainProjectsFromJira(String oauthToken, String oauthVerifier) throws Exception;
 }

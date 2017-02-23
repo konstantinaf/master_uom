@@ -10,7 +10,6 @@ import com.google.common.collect.ImmutableMap;
 import com.uom.jirareport.consumers.dto.JiraConsumer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +17,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.function.Function;
 
 import static com.uom.jirareport.consumers.oauth.PropertiesClient.*;
@@ -38,6 +36,8 @@ public class OAuthClient {
     private String authorizationUrl;
     @Getter
     private String accessToken;
+    @Getter
+    private HttpResponse httpResponse;
 
     public OAuthClient(JiraOAuthClient jiraOAuthClient, JiraConsumer jiraConsumer) {
         try {
@@ -131,37 +131,20 @@ public class OAuthClient {
      */
     private Optional<Exception> handleGetRequest(List<String> arguments) {
         Map<String, String> properties = propertiesClient.getPropertiesOrDefaults();
-        String tmpToken = properties.get(ACCESS_TOKEN);
-        String secret = properties.get(SECRET);
-        String url = arguments.get(0);
+        String jiraRestUrl = arguments.get(0);
+        String accessToken = arguments.get(2);
+        String verifier = arguments.get(1);
+
         propertiesClient.savePropertiesToFile(properties);
 
         try {
-            OAuthParameters parameters = jiraOAuthClient.getParameters(tmpToken, secret, properties.get(CONSUMER_KEY), properties.get(PRIVATE_KEY));
-            HttpResponse response = getResponseFromUrl(parameters, new GenericUrl(url));
-            parseResponse(response);
+            OAuthParameters parameters = jiraOAuthClient.getParameters(accessToken, verifier, jiraConsumer.getConsumerKey(), jiraConsumer.getPrivateKey());
+            HttpResponse response = getResponseFromUrl(parameters, new GenericUrl(jiraRestUrl));
+            httpResponse = response;
+
             return Optional.empty();
         } catch (Exception e) {
             return Optional.of(e);
-        }
-    }
-
-    /**
-     * Prints response content
-     * if response content is valid JSON it prints it in 'pretty' format
-     *
-     * @param response
-     * @throws IOException
-     */
-    private void parseResponse(HttpResponse response) throws IOException {
-        Scanner s = new Scanner(response.getContent()).useDelimiter("\\A");
-        String result = s.hasNext() ? s.next() : "";
-
-        try {
-            JSONObject jsonObj = new JSONObject(result);
-            System.out.println(jsonObj.toString(2));
-        } catch (Exception e) {
-            System.out.println(result);
         }
     }
 
