@@ -2,8 +2,7 @@ var params = getQueryParams(location.search);
 
 var app = angular.module('projectApp', []);
         app.controller('projectController', function($scope, $http) {
-        // $scope.oauthToken = params.oauth_token;
-        // $scope.oauthVerifier = params.oauth_verifier;
+
         var data = {
                 oauthToken:params.oauth_token,
                 oauthVerifier: params.oauth_verifier
@@ -15,7 +14,7 @@ var app = angular.module('projectApp', []);
         };
 
         $http.get('/jreport/projects/', config).then(function(response) {
-                $scope.projects = response;
+                $scope.projects = response.data;
         }, function(response) {
                 alert('Error');
         });
