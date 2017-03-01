@@ -1,20 +1,44 @@
 <!DOCTYPE html>
-<html ng-app>
+<html>
 <head>
     <title>Hello World, AngularJS - ViralPatel.net</title>
-    <script type="text/javascript"
-            src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/project.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/project.js"></script>
 </head>
 <body>
 
-<div ng-app="projects-app" ng-controller="JiraReportController">
-    Name:
-    <input type="text" ng-model="greeting" />
-    <br />
-    <br />
-</div>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Jira Reporter</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+        </ul>
+    </div>
+</nav>
 
+<div ng-app="projectApp" ng-controller="projectController" class="container">
+
+    <!--OAuth Token: <input type="text" ng-model="projects"><br>-->
+    <!--OAuth Verifier: <input type="text" ng-model="projects"><br>-->
+    <!--<br>-->
+    <h1>Choose a project to analyze...</h1>
+    <div ng-repeat="project in projects">
+        <div class="container-fluid project">
+            <h3>{{project.name}}</h3>
+            <p>{{project.key}}</p>
+            <img ng-src="{{project['16x16']}}" class="project_logo">
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>

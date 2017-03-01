@@ -1,8 +1,12 @@
 package com.uom.jirareport.consumers.dto;
 
 import lombok.Getter;
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by fotarik on 22/02/2017.
@@ -10,26 +14,28 @@ import java.io.Serializable;
 @Getter
 public class ProjectDTO implements Serializable {
 
-    private String projectKey;
-    private String projectName;
+    @JsonProperty
+    private String expand;
+    @JsonProperty
+    private String self;
+    @JsonProperty
+    private String id;
+    @JsonProperty
+    private String key;
+    @JsonProperty
+    private String name;
+    private Map<String,String> avatarUrls;
+    @JsonProperty
+    private String projectTypeKey;
 
-    private ProjectDTO(ProjectBuilder builder) {
-        this.projectKey = builder.projectKey;
-        this.projectName = builder.projectName;
+    @JsonAnyGetter
+    public Map<String, String> getAvatarUrls() {
+        return avatarUrls;
     }
 
-    public static class ProjectBuilder {
-        private final String projectKey;
-        private final String projectName;
-
-        public ProjectBuilder(String projectKey, String projectName) {
-            this.projectKey = projectKey;
-            this.projectName = projectName;
-        }
-
-        public ProjectDTO build() {
-            return new ProjectDTO(this);
-        }
-
+    @JsonAnySetter
+    public void setAvatarUrls(Map<String, String> avatarUrls) {
+        this.avatarUrls = avatarUrls;
     }
+
 }

@@ -22,4 +22,7 @@ public class JiraConsumer implements Serializable {
 
     @Column(name = "private_key")
     private String privateKey;
+
+    @Column(name = "jira_rest_url")
+    private String jiraRestUrl;
 }

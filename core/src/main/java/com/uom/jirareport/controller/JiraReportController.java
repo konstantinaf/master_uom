@@ -3,16 +3,15 @@ package com.uom.jirareport.controller;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 import com.uom.jirareport.consumers.services.JiraConsumerServiceImpl;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,12 +36,13 @@ public class JiraReportController {
 
     @RequestMapping(value="/projects", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ProjectDTO getJiraProjects(HttpServletRequest request) throws Exception {
-        System.out.println("Oauth token " + request.getParameter("oauth_token"));
-        System.out.println("Oauth verifier " + request.getParameter("oauth_verifier"));
+    public List<ProjectDTO> getJiraProjects(HttpServletRequest request) throws Exception {
 
-        ProjectDTO.ProjectBuilder builder = new ProjectDTO.ProjectBuilder("COOK", "Cook Project");
+        String oauthToken = request.getParameter("oauthToken");
+        String oauthVerifier = request.getParameter("oauthVerifier");
+        //todo error handling
+        List<ProjectDTO> projectList = amadeusCityService.getDomainProjectsFromJira(oauthToken, oauthVerifier);
 
-        return builder.build();
+        return projectList;
     }
 }
