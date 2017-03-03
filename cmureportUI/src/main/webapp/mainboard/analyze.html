@@ -10,12 +10,42 @@
 <script src="/js/analyze.js"></script>
 <script>
     function MainCtrl($scope, $http){
-        //todo get the location parameters
+
+        var params = getQueryParams(location.search);
+
+        var query_data = {
+            projectKey:params.projectKey,
+            oauthVerifier: params.oauth_verifier
+        };
+
+        var config = {
+            params: query_data,
+            headers : {'Accept' : 'application/json'}
+        };
+
+        function getQueryParams(qs) {
+            qs = qs.split('+').join(' ');
+
+            var params = {},
+                    tokens,
+                    re = /[?&]?([^=]+)=([^&]*)/g;
+
+            while (tokens = re.exec(qs)) {
+                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+            }
+
+            return params;
+        }
+
         $http.get('/jreport/issues/', config).then(function(response) {
             var data = {
-                "xData": response.xData,
-                "yData": response.yData
+                "xData": response.data.xdata,
+                "yData": response.data.ydata
+
             }
+
+            $scope.lineChartYData=data.yData
+            $scope.lineChartXData=data.xData
         }, function(response) {
 
         });
@@ -31,9 +61,8 @@
 //                }
 //            ]
 //        }
-        
-        $scope.lineChartYData=data.yData
-        $scope.lineChartXData=data.xData
+
+
     }
 </script>
 <script>

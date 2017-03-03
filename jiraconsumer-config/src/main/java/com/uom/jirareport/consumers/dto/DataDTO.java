@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class DataDTO implements Serializable {
 
     private String[] xData = {"Jan","Feb","Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    private BugsPerMonthDTO yData;
+    private BugsPerMonthDTO[] yData;
 
     private DataDTO(DataDTOBuilder builder) {
         this.yData = builder.yData;
@@ -19,9 +19,9 @@ public class DataDTO implements Serializable {
     }
 
     public static class DataDTOBuilder {
-        private final BugsPerMonthDTO yData;
+        private final BugsPerMonthDTO[] yData;
 
-        public DataDTOBuilder(BugsPerMonthDTO yData) {
+        public DataDTOBuilder(BugsPerMonthDTO[] yData) {
             this.yData = yData;
         }
 

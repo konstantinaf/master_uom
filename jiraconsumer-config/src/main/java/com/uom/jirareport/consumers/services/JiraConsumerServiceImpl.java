@@ -205,7 +205,9 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
         BugsPerMonthDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsPerMonthDTO.BugsPerMonthDTOBuilder(projectKey, dataArray);
 
-        DataDTO.DataDTOBuilder builder = new DataDTO.DataDTOBuilder(bugsPerMonthDTOBuilder.build());
+        BugsPerMonthDTO[] bugsPerMonthDTOs = new BugsPerMonthDTO[1];
+        bugsPerMonthDTOs[0] = bugsPerMonthDTOBuilder.build();
+        DataDTO.DataDTOBuilder builder = new DataDTO.DataDTOBuilder(bugsPerMonthDTOs);
 
         return builder.build();
     }

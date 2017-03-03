@@ -1,6 +1,7 @@
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/IssueDTO.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/ProjectDTO.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/Command.java
+/Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/BugsPerMonthDTO.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthClient.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/config/JndiDataSourceContext.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthGetTemporaryToken.java
@@ -10,6 +11,7 @@
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/JiraConsumer.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/JiraOAuthTokenFactory.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/config/DaoConfigFactory.java
+/Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/dto/DataDTO.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/services/JiraConsumerService.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/OAuthClient.java
 /Users/fotarik/Documents/amadeus-cmu-report/jiraconsumer-config/src/main/java/com/uom/jirareport/consumers/oauth/PropertiesClient.java
