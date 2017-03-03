@@ -1,7 +1,8 @@
 var params = getQueryParams(location.search);
 
 var app = angular.module('projectApp', []);
-        app.controller('projectController', function($scope, $http) {
+
+app.controller('projectController', function($scope, $http) {
 
         var data = {
                 oauthToken:params.oauth_token,
@@ -16,10 +17,15 @@ var app = angular.module('projectApp', []);
         $http.get('/jreport/projects/', config).then(function(response) {
                 $scope.projects = response.data;
         }, function(response) {
-                alert('Error');
-        });
-});
 
+        });
+
+
+        $scope.getIssuesFromJira = function getIssuesFromJira(projectKey) {
+                alert(projectKey);
+                window.location.href="/mainboard/analyze.html?projectKey="+projectKey+"&oauth_verifier="+params.oauth_verifier;
+        }
+});
 
 
 function getQueryParams(qs) {

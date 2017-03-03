@@ -83,16 +83,18 @@
             <version>RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.atlassian.jira/jira-rest-api -->
         <dependency>
             <groupId>com.atlassian.jira</groupId>
-            <artifactId>jira-rest-java-client-api</artifactId>
-            <version>RELEASE</version>
+            <artifactId>jira-rest-api</artifactId>
+            <version>7.1.0-QR20151229171111</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.atlassian.jira/jira-rest-java-client-core -->
         <dependency>
             <groupId>com.atlassian.jira</groupId>
             <artifactId>jira-rest-java-client-core</artifactId>
-            <version>3.0.0</version>
+            <version>4.0.0</version>
         </dependency>
 
         <!-- OAuth Dependency -->
@@ -122,7 +124,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
         </dependency>
-
 
     </dependencies>
 

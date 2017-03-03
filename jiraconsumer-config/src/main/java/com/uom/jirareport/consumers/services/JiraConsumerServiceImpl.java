@@ -1,11 +1,9 @@
 package com.uom.jirareport.consumers.services;
 
-import com.atlassian.jira.rest.client.api.domain.Project;
-import com.atlassian.jira.rest.client.internal.json.ProjectJsonParser;
+import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.internal.json.IssueJsonParser;
 import com.uom.jirareport.consumers.dao.JiraConsumerRepository;
-import com.uom.jirareport.consumers.dto.JiraConsumer;
-import com.uom.jirareport.consumers.dto.ProjectDTO;
-import com.uom.jirareport.consumers.dto.ServiceResponse;
+import com.uom.jirareport.consumers.dto.*;
 import com.uom.jirareport.consumers.oauth.Command;
 import com.uom.jirareport.consumers.oauth.JiraOAuthClient;
 import com.uom.jirareport.consumers.oauth.OAuthClient;
@@ -14,12 +12,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.cci.core.InteractionCallback;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by fotarik on 13/02/2017.
@@ -33,8 +30,6 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     private Optional<JiraConsumer> jiraConsumer;
     private OAuthClient oAuthClient;
 
-    private ProjectJsonParser projectJsonParser = new ProjectJsonParser();
-
     static {
         commands.add("requestToken");
         commands.add("accessToken");
@@ -43,6 +38,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
     @Autowired
     JiraConsumerRepository jiraConsumerRepository;
+
 
     @Override
     public ServiceResponse getAuthorizationUrl(String domainName) throws Exception {
@@ -111,6 +107,107 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         }
 
         return projectList;
+    }
+
+    @Override
+    public List<Issue> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception {
+
+        List<Issue> issues = new ArrayList<>();
+        String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "&fields=id,key");
+
+        List<String> argumentsForRequest = new ArrayList<>();
+        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+        argumentsForRequest.add(oauthVerifier);
+        argumentsForRequest.add(accessToken);
+
+        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+        JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+        ObjectMapper mapper = new ObjectMapper();
+        IssueResponseDTO issueResponseDTO = mapper.readValue(jsonObject.toString(), IssueResponseDTO.class);
+
+
+        IssueJsonParser issueJsonParser = new IssueJsonParser();
+
+        for (IssueDTO issueDTO : issueResponseDTO.getIssues()) {
+            jqlQuery = "issue/"+issueDTO.getKey()+"?expand=names,schema";
+            argumentsForRequest = new ArrayList<>();
+            argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+            argumentsForRequest.add(oauthVerifier);
+            argumentsForRequest.add(accessToken);
+
+            oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+            jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+            Issue issue = issueJsonParser.parse(jsonObject);
+
+            issues.add(issue);
+        }
+
+        System.out.println("******************************* " +issues.size());
+        return  issues;
+    }
+
+    @Override
+    //todo Per YEAR!
+    public DataDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
+        Map<Integer, Long> bugsPerMonth = new HashMap<>();
+        List<Issue> bugs = new ArrayList<>();
+        String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "%20AND%20issuetype%20%3D%20bug&fields=id,key");
+
+        List<String> argumentsForRequest = new ArrayList<>();
+        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+        argumentsForRequest.add(oauthVerifier);
+        argumentsForRequest.add(accessToken);
+
+        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+        JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+        ObjectMapper mapper = new ObjectMapper();
+        IssueResponseDTO issueResponseDTO = mapper.readValue(jsonObject.toString(), IssueResponseDTO.class);
+
+
+        IssueJsonParser issueJsonParser = new IssueJsonParser();
+
+        for (IssueDTO issueDTO : issueResponseDTO.getIssues()) {
+            jqlQuery = "issue/"+issueDTO.getKey()+"?expand=names,schema";
+            argumentsForRequest = new ArrayList<>();
+            argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+            argumentsForRequest.add(oauthVerifier);
+            argumentsForRequest.add(accessToken);
+
+            oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+            jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+            Issue issue = issueJsonParser.parse(jsonObject);
+
+            bugs.add(issue);
+        }
+
+        bugs.stream()
+                .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
+                .forEach((id,count)->bugsPerMonth.put(id, count));
+
+        Map<Integer, Long> map = new TreeMap<>(bugsPerMonth);
+
+        List<Long> dataList = new ArrayList<>();
+
+        for (Integer key: map.keySet()) {
+            dataList.add(map.get(key));
+        }
+
+        Long[] dataArray = new Long[dataList.size()];
+        dataArray = dataList.toArray(dataArray);
+
+        BugsPerMonthDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsPerMonthDTO.BugsPerMonthDTOBuilder(projectKey, dataArray);
+
+        DataDTO.DataDTOBuilder builder = new DataDTO.DataDTOBuilder(bugsPerMonthDTOBuilder.build());
+
+        return builder.build();
     }
 
 

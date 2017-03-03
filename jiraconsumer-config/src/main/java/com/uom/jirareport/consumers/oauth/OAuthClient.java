@@ -139,6 +139,8 @@ public class OAuthClient {
 
         try {
             OAuthParameters parameters = jiraOAuthClient.getParameters(accessToken, verifier, jiraConsumer.getConsumerKey(), jiraConsumer.getPrivateKey());
+
+            System.out.println("Jira rest api url " + jiraRestUrl);
             HttpResponse response = getResponseFromUrl(parameters, new GenericUrl(jiraRestUrl));
             httpResponse = response;
 
