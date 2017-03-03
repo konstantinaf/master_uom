@@ -1,5 +1,6 @@
 package com.uom.jirareport.controller;
 
+import com.uom.jirareport.consumers.dto.IssueDTO;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 import com.uom.jirareport.consumers.services.JiraConsumerServiceImpl;
@@ -44,5 +45,17 @@ public class JiraReportController {
         List<ProjectDTO> projectList = amadeusCityService.getDomainProjectsFromJira(oauthToken, oauthVerifier);
 
         return projectList;
+    }
+
+    @RequestMapping(value="/issues", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<IssueDTO> getJiraProjectIssues(HttpServletRequest request) throws Exception {
+
+        String projectKey = request.getParameter("projectKey");
+        String oauthVerifier = request.getParameter("oauthVerifier");
+        //todo error handling
+        List<IssueDTO> issuesList = amadeusCityService.getIssuesByProjectKey(projectKey, oauthVerifier);
+
+        return issuesList;
     }
 }

@@ -1,0 +1,24 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+.idea/libraries/Maven__com_atlassian_sal_sal_api_2_7_0.xml
+.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_6.xml
+.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml
+.idea/libraries/Maven__commons_lang_commons_lang_2_4.xml
+.idea/libraries/Maven__org_codehaus_jackson_jackson_core_asl_1_9_13.xml
+.idea/libraries/Maven__org_codehaus_jackson_jackson_mapper_asl_1_9_13.xml
+.idea/sonarlint/
+cmureportUI/src/main/resources/node_modules/
+cmureportUI/src/main/webapp/WEB-INF/classes/
+cmureportUI/target/cmu-report-UI/WEB-INF/lib/jackson-core-2.8.6.jar
+cmureportUI/target/cmu-report-UI/WEB-INF/lib/jackson-core-asl-1.9.13.jar
+cmureportUI/target/cmu-report-UI/WEB-INF/lib/jackson-mapper-asl-1.9.13.jar
+cmureportUI/target/cmu-report-UI/css/
+core/src/test/
+core/target/generated-sources/
+jiraconsumer-config/src/main/resources/
+jiraconsumer-config/src/test/
+jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/FieldDTO.class
+jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/IssueDTO.class
+jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/IssueResponseDTO.class
+jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/IssueTypeDTO.class
+jiraconsumer-config/target/generated-sources/

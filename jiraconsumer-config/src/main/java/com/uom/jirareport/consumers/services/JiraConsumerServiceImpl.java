@@ -1,11 +1,12 @@
 package com.uom.jirareport.consumers.services;
 
-import com.atlassian.jira.rest.client.api.domain.Project;
-import com.atlassian.jira.rest.client.internal.json.ProjectJsonParser;
+import com.atlassian.jira.rest.client.api.SearchRestClient;
+import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.SearchResult;
+import com.atlassian.util.concurrent.Promise;
+import com.google.common.collect.Iterables;
 import com.uom.jirareport.consumers.dao.JiraConsumerRepository;
-import com.uom.jirareport.consumers.dto.JiraConsumer;
-import com.uom.jirareport.consumers.dto.ProjectDTO;
-import com.uom.jirareport.consumers.dto.ServiceResponse;
+import com.uom.jirareport.consumers.dto.*;
 import com.uom.jirareport.consumers.oauth.Command;
 import com.uom.jirareport.consumers.oauth.JiraOAuthClient;
 import com.uom.jirareport.consumers.oauth.OAuthClient;
@@ -16,10 +17,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by fotarik on 13/02/2017.
@@ -32,8 +30,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     final static List<String> commands = new ArrayList<>();
     private Optional<JiraConsumer> jiraConsumer;
     private OAuthClient oAuthClient;
-
-    private ProjectJsonParser projectJsonParser = new ProjectJsonParser();
+    static Set<String> REQUIRED_FIELDS;
 
     static {
         commands.add("requestToken");
@@ -43,6 +40,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
     @Autowired
     JiraConsumerRepository jiraConsumerRepository;
+
 
     @Override
     public ServiceResponse getAuthorizationUrl(String domainName) throws Exception {
@@ -111,6 +109,25 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         }
 
         return projectList;
+    }
+
+    @Override
+    public List<IssueDTO> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception {
+
+        String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey);
+        List<String> argumentsForRequest = new ArrayList<>();
+        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+        argumentsForRequest.add(oauthVerifier);
+        argumentsForRequest.add(accessToken);
+
+        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+        JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+        ObjectMapper mapper = new ObjectMapper();
+        IssueResponseDTO issueResponseDTO = mapper.readValue(jsonObject.toString(), IssueResponseDTO.class);
+
+        return new ArrayList<>(Arrays.asList(issueResponseDTO.getIssues()));
     }
 
 

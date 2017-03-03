@@ -80,8 +80,8 @@
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.stream:stax-api:1.0-2" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.5.5" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.5.5" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.5.5" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-xc:1.5.5" level="project" />
     <orderEntry type="library" name="Maven: com.atlassian.httpclient:atlassian-httpclient-apache-httpcomponents:0.13.2" level="project" />
@@ -92,6 +92,6 @@
     <orderEntry type="library" name="Maven: net.oauth.core:oauth:20100527" level="project" />
     <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client:1.22.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.http-client:google-http-client:1.22.0" level="project" />
-    <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.6" level="project" />
   </component>
 </module>
