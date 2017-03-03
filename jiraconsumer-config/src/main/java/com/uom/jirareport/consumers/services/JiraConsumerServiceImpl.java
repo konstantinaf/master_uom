@@ -204,7 +204,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         dataArray = dataList.toArray(dataArray);
 
         BugsPerMonthDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsPerMonthDTO.BugsPerMonthDTOBuilder(projectKey, dataArray);
-
+//todo Fix the data!
         BugsPerMonthDTO[] bugsPerMonthDTOs = new BugsPerMonthDTO[1];
         bugsPerMonthDTOs[0] = bugsPerMonthDTOBuilder.build();
         DataDTO.DataDTOBuilder builder = new DataDTO.DataDTOBuilder(bugsPerMonthDTOs);
