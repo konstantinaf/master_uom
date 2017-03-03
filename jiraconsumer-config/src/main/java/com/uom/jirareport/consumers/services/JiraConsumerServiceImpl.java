@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by fotarik on 13/02/2017.
@@ -146,6 +147,53 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
         System.out.println("******************************* " +issues.size());
         return  issues;
+    }
+
+    @Override
+    public Map<Integer, Long> getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
+        Map<Integer, Long> bugsPerMonth = new HashMap<>();
+        List<Issue> bugs = new ArrayList<>();
+        String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "%20AND%20issuetype%20%3D%20bug&fields=id,key");
+
+        List<String> argumentsForRequest = new ArrayList<>();
+        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+        argumentsForRequest.add(oauthVerifier);
+        argumentsForRequest.add(accessToken);
+
+        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+        JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+        ObjectMapper mapper = new ObjectMapper();
+        IssueResponseDTO issueResponseDTO = mapper.readValue(jsonObject.toString(), IssueResponseDTO.class);
+
+
+        IssueJsonParser issueJsonParser = new IssueJsonParser();
+
+        for (IssueDTO issueDTO : issueResponseDTO.getIssues()) {
+            jqlQuery = "issue/"+issueDTO.getKey()+"?expand=names,schema";
+            argumentsForRequest = new ArrayList<>();
+            argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+            argumentsForRequest.add(oauthVerifier);
+            argumentsForRequest.add(accessToken);
+
+            oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+            jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+            Issue issue = issueJsonParser.parse(jsonObject);
+
+            bugs.add(issue);
+        }
+
+        bugs.stream()
+                .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
+                .forEach((id,count)->bugsPerMonth.put(id, count));
+                        //System.out.println(id+"\t"+count));
+
+
+
+        return null;
     }
 
 

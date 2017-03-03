@@ -3,6 +3,7 @@ package com.uom.jirareport.controller;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
+import com.uom.jirareport.consumers.services.JiraConsumerService;
 import com.uom.jirareport.consumers.services.JiraConsumerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -22,7 +24,7 @@ import java.util.Optional;
 public class JiraReportController {
 
     @Autowired
-    JiraConsumerServiceImpl amadeusCityService;
+    JiraConsumerService jiraConsumerService;
 
     @RequestMapping(value="/oauth", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -30,7 +32,7 @@ public class JiraReportController {
         ServiceResponse serviceResponse = null;
             Optional<String> url = Optional.ofNullable(request.getParameter("url"));
             if (url.isPresent()) {
-                serviceResponse = amadeusCityService.getAuthorizationUrl(url.get());
+                serviceResponse = jiraConsumerService.getAuthorizationUrl(url.get());
             }
         return serviceResponse;
     }
@@ -42,20 +44,32 @@ public class JiraReportController {
         String oauthToken = request.getParameter("oauthToken");
         String oauthVerifier = request.getParameter("oauthVerifier");
         //todo error handling
-        List<ProjectDTO> projectList = amadeusCityService.getDomainProjectsFromJira(oauthToken, oauthVerifier);
+        List<ProjectDTO> projectList = jiraConsumerService.getDomainProjectsFromJira(oauthToken, oauthVerifier);
 
         return projectList;
     }
 
-    @RequestMapping(value="/issues", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value="/todo change", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Issue> getJiraProjectIssues(HttpServletRequest request) throws Exception {
 
         String projectKey = request.getParameter("projectKey");
         String oauthVerifier = request.getParameter("oauthVerifier");
         //todo error handling
-        List<Issue> issuesList = amadeusCityService.getIssuesByProjectKey(projectKey, oauthVerifier);
+        List<Issue> issuesList = jiraConsumerService.getIssuesByProjectKey(projectKey, oauthVerifier);
 
         return issuesList;
+    }
+
+    @RequestMapping(value="/issues", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Map<Integer, Long> getBugsCountPerMonth(HttpServletRequest request) throws Exception {
+
+        String projectKey = request.getParameter("projectKey");
+        String oauthVerifier = request.getParameter("oauthVerifier");
+        //todo error handling
+        Map<Integer, Long> bugsCountPerMonth = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
+
+        return bugsCountPerMonth;
     }
 }
