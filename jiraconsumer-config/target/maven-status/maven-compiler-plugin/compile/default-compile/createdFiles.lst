@@ -1,9 +1,14 @@
+com/uom/jirareport/consumers/dto/IssueDTO.class
 com/uom/jirareport/consumers/dto/ServiceResponse$ServiceResponseBuilder.class
+com/uom/jirareport/consumers/dto/FieldDTO.class
 com/uom/jirareport/consumers/config/JiraConsumerWriteDaoContext.class
 com/uom/jirareport/consumers/config/DaoConfigFactory.class
 com/uom/jirareport/consumers/util/HibernateUtil.class
 com/uom/jirareport/consumers/dto/ServiceResponse.class
 com/uom/jirareport/consumers/dto/JiraConsumerKey.class
+com/uom/jirareport/consumers/dto/IssueTypeDTO.class
+com/uom/jirareport/consumers/dto/IssueResponseDTO.class
+com/uom/jirareport/consumers/dto/PriorityDTO.class
 com/uom/jirareport/consumers/dto/JiraConsumer.class
 com/uom/jirareport/consumers/dao/WriteJpaRepository.class
 com/uom/jirareport/consumers/oauth/OAuthClient.class
@@ -15,9 +20,9 @@ com/uom/jirareport/consumers/exceptions/ConfigurationException.class
 com/uom/jirareport/consumers/services/JiraConsumerServiceImpl.class
 com/uom/jirareport/consumers/util/HibernateAppenderSessionService.class
 com/uom/jirareport/consumers/services/JiraConsumerService.class
-com/uom/jirareport/consumers/dto/ProjectDTO$ProjectBuilder.class
+com/uom/jirareport/consumers/dto/JiraUserDTO.class
 com/uom/jirareport/consumers/dto/ServiceResponse$1.class
-com/uom/jirareport/consumers/dto/ProjectDTO$1.class
+com/uom/jirareport/consumers/dto/ComponentDTO.class
 com/uom/jirareport/consumers/config/JiraConsumerConfigDaoContext.class
 com/uom/jirareport/consumers/oauth/JiraOAuthClient.class
 com/uom/jirareport/consumers/dto/ProjectDTO.class
