@@ -12,6 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.cci.core.InteractionCallback;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -151,7 +152,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
     @Override
     //todo Per YEAR!
-    public Map<Integer, Long> getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
+    public DataDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
         Map<Integer, Long> bugsPerMonth = new HashMap<>();
         List<Issue> bugs = new ArrayList<>();
         String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "%20AND%20issuetype%20%3D%20bug&fields=id,key");
@@ -190,11 +191,23 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         bugs.stream()
                 .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
                 .forEach((id,count)->bugsPerMonth.put(id, count));
-                        //System.out.println(id+"\t"+count));
 
+        Map<Integer, Long> map = new TreeMap<>(bugsPerMonth);
 
+        List<Long> dataList = new ArrayList<>();
 
-        return null;
+        for (Integer key: map.keySet()) {
+            dataList.add(map.get(key));
+        }
+
+        Long[] dataArray = new Long[dataList.size()];
+        dataArray = dataList.toArray(dataArray);
+
+        BugsPerMonthDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsPerMonthDTO.BugsPerMonthDTOBuilder(projectKey, dataArray);
+
+        DataDTO.DataDTOBuilder builder = new DataDTO.DataDTOBuilder(bugsPerMonthDTOBuilder.build());
+
+        return builder.build();
     }
 
 

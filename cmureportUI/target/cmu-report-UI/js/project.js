@@ -23,22 +23,7 @@ app.controller('projectController', function($scope, $http) {
 
         $scope.getIssuesFromJira = function getIssuesFromJira(projectKey) {
                 alert(projectKey);
-                var data = {
-                        projectKey:projectKey,
-                        oauthVerifier: params.oauth_verifier
-                };
-
-                var config = {
-                        params: data,
-                        headers : {'Accept' : 'application/json'}
-                };
-
-                $http.get('/jreport/issues/', config).then(function(response) {
-                        $scope.issues = response.data;
-                }, function(response) {
-
-                });
-
+                window.location.href="/mainboard/analyze.html?projectKey="+projectKey+"&oauth_verifier="+params.oauth_verifier;
         }
 });
 

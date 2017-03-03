@@ -1,6 +1,7 @@
 package com.uom.jirareport.controller;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.uom.jirareport.consumers.dto.DataDTO;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 import com.uom.jirareport.consumers.services.JiraConsumerService;
@@ -63,13 +64,13 @@ public class JiraReportController {
 
     @RequestMapping(value="/issues", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Map<Integer, Long> getBugsCountPerMonth(HttpServletRequest request) throws Exception {
+    public DataDTO getBugsCountPerMonth(HttpServletRequest request) throws Exception {
 
         String projectKey = request.getParameter("projectKey");
         String oauthVerifier = request.getParameter("oauthVerifier");
         //todo error handling
-        Map<Integer, Long> bugsCountPerMonth = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
+        DataDTO dataDTO = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
 
-        return bugsCountPerMonth;
+        return dataDTO;
     }
 }
