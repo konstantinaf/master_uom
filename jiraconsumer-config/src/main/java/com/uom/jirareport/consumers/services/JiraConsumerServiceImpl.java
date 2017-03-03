@@ -28,6 +28,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     final static List<String> commands = new ArrayList<>();
     private Optional<JiraConsumer> jiraConsumer;
     private OAuthClient oAuthClient;
+    private List<String> argumentsForRequest;
 
     static {
         commands.add("requestToken");
@@ -85,13 +86,9 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     public List<ProjectDTO> getDomainProjectsFromJira(String oauthToken, String oauthVerifier) throws Exception {
         this.getAccessToken(oauthToken, oauthVerifier);
 
-        String jqlQuery = "project";
-        List<String> argumentsForRequest = new ArrayList<>();
-        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
-        argumentsForRequest.add(oauthVerifier);
-        argumentsForRequest.add(accessToken);
-
-        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+        String projectJQLQuery = "project";
+        prepareArguments(jiraConsumer.get().getJiraRestUrl()+ projectJQLQuery, oauthVerifier, accessToken);
+        executeJiraHttpRequest("request", argumentsForRequest);
 
         List<ProjectDTO> projectList = new ArrayList<>();
 
@@ -114,12 +111,8 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         List<Issue> issues = new ArrayList<>();
         String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "&fields=id,key");
 
-        List<String> argumentsForRequest = new ArrayList<>();
-        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
-        argumentsForRequest.add(oauthVerifier);
-        argumentsForRequest.add(accessToken);
-
-        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+        prepareArguments(jiraConsumer.get().getJiraRestUrl() + jqlQuery, oauthVerifier, accessToken);
+        executeJiraHttpRequest("request", argumentsForRequest);
 
         JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
 
@@ -145,23 +138,17 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
             issues.add(issue);
         }
 
-        System.out.println("******************************* " +issues.size());
         return  issues;
     }
 
     @Override
-    //todo Per YEAR!
     public DataDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
         Map<Integer, Long> bugsPerMonth = new HashMap<>();
         List<Issue> bugs = new ArrayList<>();
         String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "%20AND%20issuetype%20%3D%20bug&fields=id,key");
 
-        List<String> argumentsForRequest = new ArrayList<>();
-        argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
-        argumentsForRequest.add(oauthVerifier);
-        argumentsForRequest.add(accessToken);
-
-        oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+        prepareArguments(jiraConsumer.get().getJiraRestUrl()+jqlQuery, oauthVerifier, accessToken);
+        executeJiraHttpRequest("request", argumentsForRequest);
 
         JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
 
@@ -211,5 +198,15 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         return builder.build();
     }
 
+    private void executeJiraHttpRequest(String command, List<String> argumentsForRequest) {
+        oAuthClient.execute(Command.fromString(command), argumentsForRequest);
+    }
 
+
+    private void prepareArguments(String jqlQuery, String oauthVerifier, String accessToken) {
+        argumentsForRequest = new ArrayList<>();
+        argumentsForRequest.add(jqlQuery);
+        argumentsForRequest.add(oauthVerifier);
+        argumentsForRequest.add(accessToken);
+    }
 }

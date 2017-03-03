@@ -11,10 +11,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.atlassian.jira:jira-rest-api:7.1.0-QR20151229171111" level="project" />
-    <orderEntry type="library" name="Maven: com.atlassian.jira:jira-rest-java-client-core:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.atlassian.sal:sal-api:3.0.3" level="project" />
-    <orderEntry type="library" name="Maven: com.atlassian.event:atlassian-event:2.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:4.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.2.4.RELEASE" level="project" />
