@@ -22,3 +22,10 @@ jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/IssueDTO.cla
 jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/IssueResponseDTO.class
 jiraconsumer-config/target/classes/com/uom/jirareport/consumers/dto/IssueTypeDTO.class
 jiraconsumer-config/target/generated-sources/
+/.idea/
+/.idea/compiler.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/uiDesigner.xml
+/.idea/artifacts/cmureportUI_war_exploded.xml

@@ -1,6 +1,9 @@
 package com.uom.jirareport.consumers.dto;
 
+import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.internal.json.IssueJsonParser;
 import lombok.Getter;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
@@ -9,16 +12,9 @@ import java.io.Serializable;
  * Created by fotarik on 03/03/2017.
  */
 @Getter
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class IssueResponseDTO implements Serializable {
 
-    @JsonProperty
-    private String expand;
-    @JsonProperty
-    private String startAt;
-    @JsonProperty
-    private int maxResults;
-    @JsonProperty
-    private int total;
-    @JsonProperty
+   @JsonProperty
     private IssueDTO[] issues;
 }

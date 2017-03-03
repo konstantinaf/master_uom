@@ -1,10 +1,9 @@
 package com.uom.jirareport.consumers.services;
 
-import com.uom.jirareport.consumers.dto.IssueDTO;
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -16,5 +15,5 @@ public interface JiraConsumerService {
 
     List<ProjectDTO> getDomainProjectsFromJira(String oauthToken, String oauthVerifier) throws Exception;
 
-    List<IssueDTO> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception;
+    List<Issue> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception;
 }

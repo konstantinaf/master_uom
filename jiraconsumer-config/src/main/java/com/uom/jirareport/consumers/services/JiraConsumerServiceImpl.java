@@ -1,10 +1,7 @@
 package com.uom.jirareport.consumers.services;
 
-import com.atlassian.jira.rest.client.api.SearchRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.SearchResult;
-import com.atlassian.util.concurrent.Promise;
-import com.google.common.collect.Iterables;
+import com.atlassian.jira.rest.client.internal.json.IssueJsonParser;
 import com.uom.jirareport.consumers.dao.JiraConsumerRepository;
 import com.uom.jirareport.consumers.dto.*;
 import com.uom.jirareport.consumers.oauth.Command;
@@ -30,7 +27,6 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     final static List<String> commands = new ArrayList<>();
     private Optional<JiraConsumer> jiraConsumer;
     private OAuthClient oAuthClient;
-    static Set<String> REQUIRED_FIELDS;
 
     static {
         commands.add("requestToken");
@@ -112,9 +108,11 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     }
 
     @Override
-    public List<IssueDTO> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception {
+    public List<Issue> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception {
 
-        String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey);
+        List<Issue> issues = new ArrayList<>();
+        String jqlQuery = "search?jql=project" + ("%20%3D%20" + projectKey + "&fields=id,key");
+
         List<String> argumentsForRequest = new ArrayList<>();
         argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
         argumentsForRequest.add(oauthVerifier);
@@ -127,7 +125,27 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         ObjectMapper mapper = new ObjectMapper();
         IssueResponseDTO issueResponseDTO = mapper.readValue(jsonObject.toString(), IssueResponseDTO.class);
 
-        return new ArrayList<>(Arrays.asList(issueResponseDTO.getIssues()));
+
+        IssueJsonParser issueJsonParser = new IssueJsonParser();
+
+        for (IssueDTO issueDTO : issueResponseDTO.getIssues()) {
+            jqlQuery = "issue/"+issueDTO.getKey()+"?expand=names,schema";
+            argumentsForRequest = new ArrayList<>();
+            argumentsForRequest.add(jiraConsumer.get().getJiraRestUrl() + jqlQuery);
+            argumentsForRequest.add(oauthVerifier);
+            argumentsForRequest.add(accessToken);
+
+            oAuthClient.execute(Command.fromString(commands.get(2)), argumentsForRequest);
+
+            jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+            Issue issue = issueJsonParser.parse(jsonObject);
+
+            issues.add(issue);
+        }
+
+        System.out.println("******************************* " +issues.size());
+        return  issues;
     }
 
 
