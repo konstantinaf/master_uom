@@ -17,7 +17,6 @@ import java.util.Properties;
  */
 public class DaoConfigFactory {
 
-    //jndi lookups
     public static final String JUPITER1_JNDI_READ = "jdbc/Jupiter1DS";
 
     public static final String ENTITY_MANAGER_WRITE = "jiraEntityManagerFactoryBean";

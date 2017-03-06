@@ -18,4 +18,5 @@ public class JiraConsumerKey implements Serializable{
 
     @Column(name="jira_url")
     private String jiraUrl;
+
 }

@@ -4,8 +4,6 @@ import com.uom.jirareport.consumers.dto.JiraConsumer;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
 /**
  * Created by fotarik on 17/02/2017.
  */

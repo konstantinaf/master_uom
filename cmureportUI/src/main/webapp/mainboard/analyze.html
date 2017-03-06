@@ -3,7 +3,8 @@
     <title>Angularchart Example</title>
 </head>
 <body>
-<div ng-view></div>
+<div ng-view>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -42,9 +43,9 @@
                 "xData": response.data.xdata,
                 "yData": response.data.ydata
 
-            }
-
-            $scope.lineChartYData=data.yData
+            };
+            $scope.giniRatio = response.data.giniCoefficient;
+            $scope.lineChartYData=data.yData;
             $scope.lineChartXData=data.xData
         }, function(response) {
 
@@ -73,5 +74,10 @@
         })
     })
 </script>
+<div class="giniratio container">
+
+    <h1>Gini Ratio</h1>
+    {{giniRatio}}
+</div>
 </body>
 </html>

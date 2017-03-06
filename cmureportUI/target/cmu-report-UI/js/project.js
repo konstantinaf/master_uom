@@ -22,7 +22,6 @@ app.controller('projectController', function($scope, $http) {
 
 
         $scope.getIssuesFromJira = function getIssuesFromJira(projectKey) {
-                alert(projectKey);
                 window.location.href="/mainboard/analyze.html?projectKey="+projectKey+"&oauth_verifier="+params.oauth_verifier;
         }
 });

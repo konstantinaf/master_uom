@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class BugsPerMonthDTO implements Serializable {
 
     private String name;
-    private Long[] data;
+    private double[] data;
 
     private BugsPerMonthDTO(BugsPerMonthDTOBuilder builder) {
         this.name = builder.name;
@@ -20,9 +20,9 @@ public class BugsPerMonthDTO implements Serializable {
 
     public static class BugsPerMonthDTOBuilder {
         private final String name;
-        private final Long[] data;
+        private final double[] data;
 
-        public BugsPerMonthDTOBuilder(String name, Long[] data) {
+        public BugsPerMonthDTOBuilder(String name, double[] data) {
             this.name = name;
             this.data = data;
         }

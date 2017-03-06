@@ -1,7 +1,5 @@
 package com.uom.jirareport.consumers.dto;
 
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.internal.json.IssueJsonParser;
 import lombok.Getter;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;

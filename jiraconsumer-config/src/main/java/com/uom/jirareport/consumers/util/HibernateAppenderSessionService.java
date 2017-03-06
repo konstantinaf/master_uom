@@ -17,5 +17,5 @@ public interface HibernateAppenderSessionService {
      * @return An open Hibernate session
      * @throws HibernateException
      */
-    public Session openSession() throws HibernateException;
+    Session openSession() throws HibernateException;
 }
