@@ -47,16 +47,9 @@ $(document).ready(function () {
             domain = url.split('/')[0];
         }
 
-        //find & remove port number
-        //domain = domain.split(':')[0];
-
         return domain;
     }
 
-    function dummyFunction() {
-        alert("Hey");
-
-    }
     $("#link_input").keypress(function () {
         clearUrlErrors();
         clearServerMessage();

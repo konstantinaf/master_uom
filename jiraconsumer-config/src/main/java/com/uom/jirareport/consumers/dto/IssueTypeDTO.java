@@ -1,7 +1,6 @@
 package com.uom.jirareport.consumers.dto;
 
 import lombok.Getter;
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;

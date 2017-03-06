@@ -1,10 +1,9 @@
 package com.uom.jirareport.consumers.util;
 
-import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.apache.log4j.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
