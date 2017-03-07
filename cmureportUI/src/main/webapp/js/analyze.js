@@ -23,7 +23,6 @@ angular.module('AngularChart', []).directive('chart', function () {
                     x:-20
                 },
                 xAxis:{
-                    //categories:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     tickInterval:1,
                     title:{
                         text:attrs.xname
@@ -60,13 +59,7 @@ angular.module('AngularChart', []).directive('chart', function () {
                     x:-10,
                     y:100,
                     borderWidth:0
-                },
-                series:[
-                    {
-                        name:'Tokyo',
-                        data:[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-                    }
-                ]
+                }
             };
 
 
@@ -85,10 +78,7 @@ angular.module('AngularChart', []).directive('chart', function () {
                 if (!news.series)return;
                 angular.extend(opt,news);
                 console.log('opt.xAxis.title.text',opt);
-
-
-
-
+                
                 var chart = new Highcharts.Chart(opt);
             });
         }
