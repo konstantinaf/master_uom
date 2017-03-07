@@ -150,7 +150,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
         return  issues;
     }
-
+    //TODO GEt bugs Per Release
     @Override
     public DataBugsPerMonthReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
         Map<Integer, Double> bugsPerMonth = new HashMap<>();
