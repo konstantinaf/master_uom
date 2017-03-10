@@ -1,7 +1,7 @@
 package com.uom.jirareport.consumers.services;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.uom.jirareport.consumers.dto.DataBugsPerMonthReportDTO;
+import com.uom.jirareport.consumers.dto.DataReportDTO;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 
@@ -45,5 +45,5 @@ public interface JiraConsumerService {
      * @return
      * @throws Exception
      */
-    DataBugsPerMonthReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception;
+    DataReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception;
 }

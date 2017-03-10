@@ -9,59 +9,20 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="/js/analyze.js"></script>
-<script>
-    function MainCtrl($scope, $http){
+<script src="/js/controller.js"></script>
 
-        var params = getQueryParams(location.search);
-
-        var query_data = {
-            projectKey:params.projectKey,
-            oauthVerifier: params.oauth_verifier
-        };
-
-        var config = {
-            params: query_data,
-            headers : {'Accept' : 'application/json'}
-        };
-
-        function getQueryParams(qs) {
-            qs = qs.split('+').join(' ');
-
-            var params = {},
-                    tokens,
-                    re = /[?&]?([^=]+)=([^&]*)/g;
-
-            while (tokens = re.exec(qs)) {
-                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-            }
-
-            return params;
-        }
-
-        $http.get('/jreport/issues/', config).then(function(response) {
-            var data = {
-                "xData": response.data.xdata,
-                "yData": response.data.ydata
-
-            };
-            $scope.giniRatio = response.data.giniCoefficient;
-            $scope.lineChartYData=data.yData;
-            $scope.lineChartXData=data.xData
-        }, function(response) {
-
-        });
-
-    }
-</script>
 <script>
     angular.module('BugsPerMonthChart',['AngularChart'], function( $routeProvider, $locationProvider ){
         $routeProvider.when('/',{
-            template: '<chart title="Project Bugs" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="Compare your projects"></chart>',
+            template: '<chart title="Project Bugs" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="How many bugs per month?" style="width:50%; float:left"></chart>',
             controller: MainCtrl
         })
     })
 
 </script>
 
+<div ng-controller="BugsPerDevCtrl">
+    <chart title="Bugs Per Developer" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="How many bugs per developer?" style="width:50%; float:left"></chart>
+</div>
 </body>
 </html>

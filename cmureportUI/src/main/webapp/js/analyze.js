@@ -6,7 +6,6 @@ angular.module('AngularChart', []).directive('chart', function () {
         replace:true,
         scope: '=',
         link:function (scope, element, attrs) {
-            console.log('oo',attrs,scope[attrs.formatter]);
             var opt = {
                 chart:{
                     renderTo:element[0],
@@ -38,14 +37,6 @@ angular.module('AngularChart', []).directive('chart', function () {
                     tickInterval:(attrs.yinterval)?Number(attrs.yinterval):null,
                     max:attrs.ymax,
                     min: attrs.ymin
-//                    ,
-//                    plotLines:[
-//                        {
-//                            value:0,
-//                            width:1,
-//                            color:'#808080'
-//                        }
-//                    ]
                 },
                 tooltip:{
                     formatter:scope[attrs.formatter]||function () {
@@ -62,7 +53,6 @@ angular.module('AngularChart', []).directive('chart', function () {
                 }
             };
 
-
             //Update when charts data changes
             scope.$watch(function (scope) {
                 return JSON.stringify({
@@ -72,13 +62,10 @@ angular.module('AngularChart', []).directive('chart', function () {
                     series:scope[attrs.ydata]
                 });
             }, function (news) {
-                console.log('ola');
-//                if (!attrs) return;
                 news = JSON.parse(news);
                 if (!news.series)return;
                 angular.extend(opt,news);
-                console.log('opt.xAxis.title.text',opt);
-                
+
                 var chart = new Highcharts.Chart(opt);
             });
         }

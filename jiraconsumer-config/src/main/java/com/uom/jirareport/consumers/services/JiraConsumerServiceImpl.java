@@ -152,7 +152,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     }
     //TODO GEt bugs Per Release
     @Override
-    public DataBugsPerMonthReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
+    public DataReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
         Map<Integer, Double> bugsPerMonth = new HashMap<>();
         List<Issue> bugs = new ArrayList<>();
         List<Double> dataList = new ArrayList<>();
@@ -232,21 +232,21 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
         double[] dataArray = new double[dataList.size()];
         for (int i = 0; i < dataArray.length; i++) {
-            dataArray[i] = dataList.get(i).doubleValue();  // java 1.4 style
-            // or:
-            dataArray[i] = dataList.get(i);                // java 1.5+ style (outboxing)
+            dataArray[i] = dataList.get(i);
         }
         return dataArray;
     }
 
-    private DataBugsPerMonthReportDTO buildDataResponseForChart(String projectKey, List<Double> dataList) {
-        BugsPerMonthDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsPerMonthDTO.BugsPerMonthDTOBuilder(projectKey, convertListToDataArray(dataList));
+    private DataReportDTO buildDataResponseForChart(String projectKey, List<Double> dataList) {
+        YDataBugsPerMonthDTO.Builder builder = new YDataBugsPerMonthDTO.Builder();
 
-        BugsPerMonthDTO[] bugsPerMonthDTOs = new BugsPerMonthDTO[1];
-        bugsPerMonthDTOs[0] = bugsPerMonthDTOBuilder.build();
-        DataBugsPerMonthReportDTO.DataDTOBuilder builder = new DataBugsPerMonthReportDTO.DataDTOBuilder(bugsPerMonthDTOs, calculateGiniCoefficient(bugsPerMonthDTOs[0].getData()));
+        YDataBugsPerMonthDTO bugsPerMonthDTO = (YDataBugsPerMonthDTO) builder.builder(projectKey, convertListToDataArray(dataList)).build();
+        YDataBugsPerMonthDTO[] bugsPerMonthDTOs = new YDataBugsPerMonthDTO[1];
+        bugsPerMonthDTOs[0] = bugsPerMonthDTO;
 
-        return builder.build();
+        BugsPerMonthDataReportDTO.Builder dataDTOBuilder = new BugsPerMonthDataReportDTO.Builder(bugsPerMonthDTOs);
+
+        return dataDTOBuilder.build();
     }
 
     private double calculateGiniCoefficient(double[] yDataData) {

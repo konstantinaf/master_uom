@@ -1,7 +1,7 @@
 package com.uom.jirareport.controller;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.uom.jirareport.consumers.dto.DataBugsPerMonthReportDTO;
+import com.uom.jirareport.consumers.dto.DataReportDTO;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 import com.uom.jirareport.consumers.services.JiraConsumerService;
@@ -62,12 +62,24 @@ public class JiraReportController {
 
     @RequestMapping(value="/issues", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public DataBugsPerMonthReportDTO getBugsCountPerMonth(HttpServletRequest request) throws Exception {
+    public DataReportDTO getBugsCountPerMonth(HttpServletRequest request) throws Exception {
 
         String projectKey = request.getParameter("projectKey");
         String oauthVerifier = request.getParameter("oauthVerifier");
         //todo error handling
-        DataBugsPerMonthReportDTO dataDTO = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
+        DataReportDTO dataDTO = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
+
+        return dataDTO;
+    }
+
+    @RequestMapping(value="/devbugs", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public DataReportDTO getBugsPerDev(HttpServletRequest request) throws Exception {
+
+        String projectKey = request.getParameter("projectKey");
+        String oauthVerifier = request.getParameter("oauthVerifier");
+        //todo error handling
+        DataReportDTO dataDTO = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
 
         return dataDTO;
     }
