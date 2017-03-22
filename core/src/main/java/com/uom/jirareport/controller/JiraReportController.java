@@ -28,6 +28,7 @@ public class JiraReportController {
     @RequestMapping(value="/oauth", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ServiceResponse authorizeUser(HttpServletRequest request) throws Exception {
+        System.out.println("Authorize User");
         ServiceResponse serviceResponse = null;
             Optional<String> url = Optional.ofNullable(request.getParameter("url"));
             if (url.isPresent()) {

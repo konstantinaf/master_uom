@@ -30,11 +30,7 @@ $(document).ready(function () {
             .done(function () {
                 getBugsBtnQ.button("reset");
                 linkJQ.removeAttr("disabled");
-            })
-            .fail(function () {
-                alert("Error");
             });
-
     });
 
     function extractDomain(url) {
