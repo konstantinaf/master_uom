@@ -1,6 +1,7 @@
 package com.uom.jirareport.consumers.services;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.User;
 import com.atlassian.jira.rest.client.internal.json.IssueJsonParser;
 import com.uom.jirareport.consumers.dao.JiraConsumerRepository;
 import com.uom.jirareport.consumers.dto.*;
@@ -150,7 +151,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
         return  issues;
     }
-    //TODO GEt bugs Per Release
+
     @Override
     public DataBugsPerMonthReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
         Map<Integer, Double> bugsPerMonth = new HashMap<>();
@@ -189,6 +190,44 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         return buildDataResponseForChart(projectKey, dataList);
     }
 
+    @Override
+    public DataBugsPerVersionReportDTO getBugsCountPerVersion(String projectKey, String oauthVerifier) throws Exception {
+        Map<String, Double> bugsPerVersion = new HashMap<>();
+        List<Issue> bugs = new ArrayList<>();
+        List<Double> dataList = new ArrayList<>();
+
+        String jqlQuery = JQL_ISSUES_BY_PROJECT + projectKey + JQL_TYPE_BUG + JQL_CREATED + lastDayOfLastYear + FIELDS_TO_SHOW;
+
+        prepareArguments(jiraConsumer.get().getJiraRestUrl()+jqlQuery, oauthVerifier, accessToken);
+        executeJiraHttpRequest(REQUEST, argumentsForRequest);
+
+        JSONObject jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+        ObjectMapper mapper = new ObjectMapper();
+        IssueResponseDTO issueResponseDTO = mapper.readValue(jsonObject.toString(), IssueResponseDTO.class);
+
+        IssueJsonParser issueJsonParser = new IssueJsonParser();
+
+        List<User> assignees = new ArrayList<>();
+        for (IssueDTO issueDTO : issueResponseDTO.getIssues()) {
+            jqlQuery = JQL_ISSUE +issueDTO.getKey()+ JQL_EXPAND;
+            prepareArguments(jiraConsumer.get().getJiraRestUrl()+jqlQuery, oauthVerifier, accessToken);
+            executeJiraHttpRequest(REQUEST, argumentsForRequest);
+
+            jsonObject = new JSONObject(oAuthClient.getHttpResponse().parseAsString());
+
+            Issue issue = issueJsonParser.parse(jsonObject);
+
+            assignees.add(issue.getAssignee());
+
+            bugs.add(issue);
+        }
+
+        countBugsAndUpdateBugsPerAssigneehMap(bugs, bugsPerVersion);
+
+        return buildResponseForAssigneeBugs(projectKey, dataList, getAssignees(bugs, assignees));
+    }
+
     private void executeJiraHttpRequest(String command, List<String> argumentsForRequest) {
         oAuthClient.execute(Command.fromString(command), argumentsForRequest);
     }
@@ -211,6 +250,22 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         bugs.stream()
                 .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
                 .forEach((id, count)->bugsPerMonth.put(id, Double.parseDouble(String.valueOf(count))));
+    }
+
+    private void countBugsAndUpdateBugsPerAssigneehMap(List<Issue> bugs, Map<String, Double> bugsPerVersion) {
+        bugs.stream()
+                .collect(Collectors.groupingBy(bug -> bug.getAssignee().getName(), Collectors.counting()))
+                .forEach((assignee, count)->bugsPerVersion.put(assignee, Double.parseDouble(String.valueOf(count))));
+    }
+
+    private String[] getAssignees(List<Issue> bugs, List<String> assignees) {
+        bugs.stream()
+                .collect(Collectors.groupingBy(bug -> bug.getAssignee().getName(), Collectors.counting()))
+                .forEach((assignee, count)->assignees.add(assignee));
+
+        String[] assigneesArray = new String[assignees.size()];
+
+        return assignees.toArray(assigneesArray);
     }
 
     private void initializeBugsPerMonthMap(Map<Integer, Double> bugsPerMonth) {
@@ -240,11 +295,21 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     }
 
     private DataBugsPerMonthReportDTO buildDataResponseForChart(String projectKey, List<Double> dataList) {
-        BugsPerMonthDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsPerMonthDTO.BugsPerMonthDTOBuilder(projectKey, convertListToDataArray(dataList));
+        BugsDataDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsDataDTO.BugsPerMonthDTOBuilder(projectKey, convertListToDataArray(dataList));
 
-        BugsPerMonthDTO[] bugsPerMonthDTOs = new BugsPerMonthDTO[1];
+        BugsDataDTO[] bugsPerMonthDTOs = new BugsDataDTO[1];
         bugsPerMonthDTOs[0] = bugsPerMonthDTOBuilder.build();
-        DataBugsPerMonthReportDTO.DataDTOBuilder builder = new DataBugsPerMonthReportDTO.DataDTOBuilder(bugsPerMonthDTOs, calculateGiniCoefficient(bugsPerMonthDTOs[0].getData()));
+        DataBugsPerMonthReportDTO.DataDTOBuilder builder = new DataBugsPerMonthReportDTO.DataDTOBuilder(bugsPerMonthDTOs);
+
+        return builder.build();
+    }
+
+    private DataBugsPerVersionReportDTO buildResponseForAssigneeBugs(String projectKey, List<Double> dataList, String[] assignees) {
+        BugsDataDTO.BugsPerMonthDTOBuilder bugsPerVersionBuilder = new BugsDataDTO.BugsPerMonthDTOBuilder(projectKey, convertListToDataArray(dataList));
+
+        BugsDataDTO[] bugsPerVersionDTOs = new BugsDataDTO[1];
+        bugsPerVersionDTOs[0] = bugsPerVersionBuilder.build();
+        DataBugsPerVersionReportDTO.DataDTOBuilder builder = new DataBugsPerVersionReportDTO.DataDTOBuilder(bugsPerVersionDTOs);
 
         return builder.build();
     }

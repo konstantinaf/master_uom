@@ -93,7 +93,7 @@
             return params;
         }
 
-        $http.get('/jreport/devbugs/', config).then(function(response) {
+        $http.get('/jreport/versionbugs/', config).then(function(response) {
             var data = {
                 "xData": response.data.xdata,
                 "yData": response.data.ydata
@@ -110,49 +110,6 @@
     }
 </script>
 
-<div ng-controller="TestCtr1">
-    <chart title="Project Bugs" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="Compare your projects" style="width:50%; float:left"></chart>
-</div>
-<script>
-    function TestCtr1($scope, $http){
-        var data = {
-            "xData": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            "yData":[{
-                "name": "TEST",
-                "data": [7.0, 6.9, 9.5, 14.5, '', 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, '']
-            },
-                {"name": "TEST-2",
-                    "data": [10.0, 3.4, 8, 23, 4, 5, 6, 4 , 6 , '' , 10]
-                }
-            ]
-        }
-
-        $scope.lineChartYData=data.yData
-        $scope.lineChartXData=data.xData
-    }
-</script>
-
-<div ng-controller="TestCtr2">
-    <chart title="Project Bugs" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="Compare your projects" style="width:50%; float:left"></chart>
-</div>
-<script>
-    function TestCtr2($scope, $http){
-        var data = {
-            "xData": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            "yData":[{
-                "name": "TEST",
-                "data": [7.0, 6.9, 9.5, 14.5, '', 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, '']
-            },
-                {"name": "TEST-2",
-                    "data": [10.0, 3.4, 8, 23, 4, 5, 6, 4 , 6 , '' , 10]
-                }
-            ]
-        }
-
-        $scope.lineChartYData=data.yData
-        $scope.lineChartXData=data.xData
-    }
-</script>
 
 </body>
 </html>

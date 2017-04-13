@@ -8,12 +8,12 @@ import java.io.Serializable;
  * Created by fotarik on 03/03/2017.
  */
 @Getter
-public class BugsPerMonthDTO implements Serializable {
+public class BugsDataDTO implements Serializable {
 
     private String name;
     private double[] data;
 
-    private BugsPerMonthDTO(BugsPerMonthDTOBuilder builder) {
+    private BugsDataDTO(BugsPerMonthDTOBuilder builder) {
         this.name = builder.name;
         this.data = builder.data;
     }
@@ -27,8 +27,8 @@ public class BugsPerMonthDTO implements Serializable {
             this.data = data;
         }
 
-        public BugsPerMonthDTO build() {
-            return new BugsPerMonthDTO(this);
+        public BugsDataDTO build() {
+            return new BugsDataDTO(this);
         }
 
     }

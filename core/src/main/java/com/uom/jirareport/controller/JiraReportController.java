@@ -71,4 +71,16 @@ public class JiraReportController {
 
         return dataDTO;
     }
+
+    @RequestMapping(value="/versionbugs", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public DataBugsPerMonthReportDTO getBugsCountPerDevPerMonth(HttpServletRequest request) throws Exception {
+
+        String projectKey = request.getParameter("projectKey");
+        String oauthVerifier = request.getParameter("oauthVerifier");
+        //todo error handling
+        DataBugsPerMonthReportDTO dataDTO = jiraConsumerService.getBugsCountPerVersion(projectKey, oauthVerifier);
+
+        return dataDTO;
+    }
 }

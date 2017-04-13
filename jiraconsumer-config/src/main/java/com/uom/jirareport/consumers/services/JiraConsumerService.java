@@ -46,4 +46,13 @@ public interface JiraConsumerService {
      * @throws Exception
      */
     DataBugsPerMonthReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception;
+
+    /**
+     * This method prepares all the data for one chart bugs per month
+     * @param projectKey
+     * @param oauthVerifier
+     * @return
+     * @throws Exception
+     */
+    DataBugsPerMonthReportDTO getBugsCountPerVersion(String projectKey, String oauthVerifier) throws Exception;
 }
