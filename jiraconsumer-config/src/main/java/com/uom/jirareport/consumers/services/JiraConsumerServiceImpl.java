@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -153,7 +154,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     }
 
     @Override
-    public DataBugsPerMonthReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
+    public DataBugsReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception {
         Map<Integer, Double> bugsPerMonth = new HashMap<>();
         List<Issue> bugs = new ArrayList<>();
         List<Double> dataList = new ArrayList<>();
@@ -183,7 +184,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         }
         initializeBugsPerMonthMap(bugsPerMonth);
 
-        countBugsAndUpdateBugsPerMonthMap(bugs, bugsPerMonth);
+        countBugsPerMonth(bugs, bugsPerMonth);
 
         sortBugsPerMonthMapByMonthNumber(bugsPerMonth, dataList);
 
@@ -191,11 +192,9 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     }
 
     @Override
-    public DataBugsPerVersionReportDTO getBugsCountPerVersion(String projectKey, String oauthVerifier) throws Exception {
-        Map<String, Double> bugsPerVersion = new HashMap<>();
+    public DataBugsReportDTO getBugsCountPerAssignee(String projectKey, String oauthVerifier) throws Exception {
         List<Issue> bugs = new ArrayList<>();
         List<Double> dataList = new ArrayList<>();
-
         String jqlQuery = JQL_ISSUES_BY_PROJECT + projectKey + JQL_TYPE_BUG + JQL_CREATED + lastDayOfLastYear + FIELDS_TO_SHOW;
 
         prepareArguments(jiraConsumer.get().getJiraRestUrl()+jqlQuery, oauthVerifier, accessToken);
@@ -218,14 +217,42 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
             Issue issue = issueJsonParser.parse(jsonObject);
 
-            assignees.add(issue.getAssignee());
+            if (issue.getAssignee() != null) {
 
-            bugs.add(issue);
+                assignees.add(issue.getAssignee());
+
+                bugs.add(issue);
+            }
         }
 
-        countBugsAndUpdateBugsPerAssigneehMap(bugs, bugsPerVersion);
+        Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth;
 
-        return buildResponseForAssigneeBugs(projectKey, dataList, getAssignees(bugs, assignees));
+        bugsPerAssigneePerMonth = countBugsPerAssigneePerMonth(bugs);
+
+        return buildResponseForAssigneeBugs(bugsPerAssigneePerMonth);
+    }
+
+    private DataBugsReportDTO buildResponseForAssigneeBugs(Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth) {
+
+        YDataDTO[] yDataDTOS = new YDataDTO[bugsPerAssigneePerMonth.size()];
+        Iterator it = bugsPerAssigneePerMonth.entrySet().iterator();
+        List<Double> dataList;
+        int i=0;
+        while (it.hasNext()) {
+            dataList = new ArrayList<>();
+            Map.Entry pair = (Map.Entry)it.next();
+
+            sortBugsPerMonthMapByMonthNumber((Map<Integer,Double>) pair.getValue(), dataList);
+
+            YDataDTO.Builder yDataDTOBuilder = new YDataDTO.Builder((String) pair.getKey(), convertListToDataArray(dataList));
+            yDataDTOS[i] = yDataDTOBuilder.build();
+            i++;
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+
+        DataBugsReportDTO.DataDTOBuilder dataBugsReportDTO = new DataBugsReportDTO.DataDTOBuilder(yDataDTOS);
+        return dataBugsReportDTO.build();
+
     }
 
     private void executeJiraHttpRequest(String command, List<String> argumentsForRequest) {
@@ -246,26 +273,40 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
         }
     }
 
-    private void countBugsAndUpdateBugsPerMonthMap(List<Issue> bugs, Map<Integer, Double> bugsPerMonth) {
+    private void countBugsPerMonth(List<Issue> bugs, Map<Integer, Double> bugsPerMonth) {
         bugs.stream()
                 .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
                 .forEach((id, count)->bugsPerMonth.put(id, Double.parseDouble(String.valueOf(count))));
     }
 
-    private void countBugsAndUpdateBugsPerAssigneehMap(List<Issue> bugs, Map<String, Double> bugsPerVersion) {
-        bugs.stream()
-                .collect(Collectors.groupingBy(bug -> bug.getAssignee().getName(), Collectors.counting()))
-                .forEach((assignee, count)->bugsPerVersion.put(assignee, Double.parseDouble(String.valueOf(count))));
-    }
+    private Map<String, Map<Integer, Double>> countBugsPerAssigneePerMonth(List<Issue> bugs) {
+        Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth = new HashMap<>();
 
-    private String[] getAssignees(List<Issue> bugs, List<String> assignees) {
-        bugs.stream()
-                .collect(Collectors.groupingBy(bug -> bug.getAssignee().getName(), Collectors.counting()))
-                .forEach((assignee, count)->assignees.add(assignee));
+        Map<String, List<Issue>> mapByAssignee =
+                bugs.stream().collect(Collectors.groupingBy(bug-> bug.getAssignee().getName()));
 
-        String[] assigneesArray = new String[assignees.size()];
+        Iterator it = mapByAssignee.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
 
-        return assignees.toArray(assigneesArray);
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+
+            List<Issue> assigneeBugs = (List<Issue>) pair.getValue();
+
+            Map<Integer, Double> bugsPerMonth = new HashMap<>();
+
+            initializeBugsPerMonthMap(bugsPerMonth);
+
+            countBugsPerMonth(assigneeBugs, bugsPerMonth);
+
+            bugsPerAssigneePerMonth.put((String) pair.getKey(), bugsPerMonth);
+
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+
+        return bugsPerAssigneePerMonth;
+
+
     }
 
     private void initializeBugsPerMonthMap(Map<Integer, Double> bugsPerMonth) {
@@ -278,6 +319,7 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
     private void sortBugsPerMonthMapByMonthNumber(Map<Integer, Double> bugsPerMonth, List<Double> dataList) {
         Map<Integer, Double> map = new TreeMap<>(bugsPerMonth);
 
+
         for (Integer key: map.keySet()) {
             dataList.add(map.get(key));
         }
@@ -287,32 +329,21 @@ public class JiraConsumerServiceImpl implements JiraConsumerService {
 
         double[] dataArray = new double[dataList.size()];
         for (int i = 0; i < dataArray.length; i++) {
-            dataArray[i] = dataList.get(i).doubleValue();  // java 1.4 style
-            // or:
-            dataArray[i] = dataList.get(i);                // java 1.5+ style (outboxing)
+            dataArray[i] = dataList.get(i).doubleValue();
         }
         return dataArray;
     }
 
-    private DataBugsPerMonthReportDTO buildDataResponseForChart(String projectKey, List<Double> dataList) {
-        BugsDataDTO.BugsPerMonthDTOBuilder bugsPerMonthDTOBuilder = new BugsDataDTO.BugsPerMonthDTOBuilder(projectKey, convertListToDataArray(dataList));
+    private DataBugsReportDTO buildDataResponseForChart(String projectKey, List<Double> dataList) {
+        YDataDTO.Builder bugsPerMonthDTOBuilder = new YDataDTO.Builder(projectKey, convertListToDataArray(dataList));
 
-        BugsDataDTO[] bugsPerMonthDTOs = new BugsDataDTO[1];
+        YDataDTO[] bugsPerMonthDTOs = new YDataDTO[1];
         bugsPerMonthDTOs[0] = bugsPerMonthDTOBuilder.build();
-        DataBugsPerMonthReportDTO.DataDTOBuilder builder = new DataBugsPerMonthReportDTO.DataDTOBuilder(bugsPerMonthDTOs);
+        DataBugsReportDTO.DataDTOBuilder builder = new DataBugsReportDTO.DataDTOBuilder(bugsPerMonthDTOs);
 
         return builder.build();
     }
 
-    private DataBugsPerVersionReportDTO buildResponseForAssigneeBugs(String projectKey, List<Double> dataList, String[] assignees) {
-        BugsDataDTO.BugsPerMonthDTOBuilder bugsPerVersionBuilder = new BugsDataDTO.BugsPerMonthDTOBuilder(projectKey, convertListToDataArray(dataList));
-
-        BugsDataDTO[] bugsPerVersionDTOs = new BugsDataDTO[1];
-        bugsPerVersionDTOs[0] = bugsPerVersionBuilder.build();
-        DataBugsPerVersionReportDTO.DataDTOBuilder builder = new DataBugsPerVersionReportDTO.DataDTOBuilder(bugsPerVersionDTOs);
-
-        return builder.build();
-    }
 
     private double calculateGiniCoefficient(double[] yDataData) {
         double giniRatio = Gini.calculate(yDataData, yDataData.length);

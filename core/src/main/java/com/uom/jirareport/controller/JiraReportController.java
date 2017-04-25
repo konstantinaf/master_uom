@@ -1,7 +1,7 @@
 package com.uom.jirareport.controller;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.uom.jirareport.consumers.dto.DataBugsPerMonthReportDTO;
+import com.uom.jirareport.consumers.dto.DataBugsReportDTO;
 import com.uom.jirareport.consumers.dto.ProjectDTO;
 import com.uom.jirareport.consumers.dto.ServiceResponse;
 import com.uom.jirareport.consumers.services.JiraConsumerService;
@@ -62,24 +62,23 @@ public class JiraReportController {
 
     @RequestMapping(value="/issues", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public DataBugsPerMonthReportDTO getBugsCountPerMonth(HttpServletRequest request) throws Exception {
+    public DataBugsReportDTO getBugsCountPerMonth(HttpServletRequest request) throws Exception {
 
         String projectKey = request.getParameter("projectKey");
         String oauthVerifier = request.getParameter("oauthVerifier");
-        //todo error handling
-        DataBugsPerMonthReportDTO dataDTO = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
+
+        DataBugsReportDTO dataDTO = jiraConsumerService.getBugsCountPerMonth(projectKey, oauthVerifier);
 
         return dataDTO;
     }
 
-    @RequestMapping(value="/versionbugs", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value="/assigneebugs", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public DataBugsPerMonthReportDTO getBugsCountPerDevPerMonth(HttpServletRequest request) throws Exception {
+    public DataBugsReportDTO getBugsCountPerDevPerMonth(HttpServletRequest request) throws Exception {
 
         String projectKey = request.getParameter("projectKey");
         String oauthVerifier = request.getParameter("oauthVerifier");
-        //todo error handling
-        DataBugsPerMonthReportDTO dataDTO = jiraConsumerService.getBugsCountPerVersion(projectKey, oauthVerifier);
+        DataBugsReportDTO dataDTO = jiraConsumerService.getBugsCountPerAssignee(projectKey, oauthVerifier);
 
         return dataDTO;
     }

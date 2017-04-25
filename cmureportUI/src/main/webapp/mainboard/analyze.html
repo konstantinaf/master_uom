@@ -7,7 +7,8 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="/js/analyze.js"></script>
 <script>
     function ProjectBugsCtrl($scope, $http){
@@ -62,11 +63,11 @@
 
 </script>
 
-<div ng-controller="DevBugsCtrl">
-    <chart title="Project Bugs" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="Compare your projects" style="width:50%; float:left"></chart>
+<div ng-controller="AssigneeBugsCtrl">
+    <chart title="Bugs Per Assignee" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="Compare bugs per assignee" style="width:50%; float:left"></chart>
 </div>
 <script>
-    function DevBugsCtrl($scope, $http){
+    function AssigneeBugsCtrl($scope, $http){
         var params = getQueryParams(location.search);
 
         var query_data = {
@@ -93,21 +94,78 @@
             return params;
         }
 
-        $http.get('/jreport/versionbugs/', config).then(function(response) {
+        $http.get('/jreport/assigneebugs/', config).then(function(response) {
             var data = {
                 "xData": response.data.xdata,
                 "yData": response.data.ydata
 
             };
-            $scope.lineChartYData=data.yData;
+            $scope.lineChartYData=data.yData
             $scope.lineChartXData=data.xData
         }, function(response) {
 
         });
 
-        $scope.lineChartYData=data.yData
-        $scope.lineChartXData=data.xData
+
     }
+</script>
+
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+<script>
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Bugs Reported Per Version for the project'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Versions',
+            colorByPoint: true,
+            data: [{
+                name: 'Version 1.0',
+                y: 2.33,
+                sliced: false,
+                selected: false
+            }, {
+                name: 'Version 2.0',
+                y: 24.03,
+                sliced: false,
+                selected: false
+            }, {
+                name: 'Version 3.0',
+                y: 10.38,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Version 4.0',
+                y: 4.77,
+                sliced: false,
+                selected: false
+            }]
+        }]
+    });
 </script>
 
 
