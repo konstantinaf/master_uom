@@ -13,46 +13,33 @@ import java.util.List;
 public interface JiraConsumerService {
 
     /**
-     * This method uses oAuth to authorize the user
-     * @param url
-     * @return ServiceResponse
-     * @throws Exception
-     */
-    ServiceResponse getAuthorizationUrl(String url) throws Exception;
-
-    /**
      * This method gets the domain projects from the jira url
-     * @param oauthToken
-     * @param oauthVerifier
      * @return List<ProjectDTO>
      * @throws Exception
      */
-    List<ProjectDTO> getDomainProjectsFromJira(String oauthToken, String oauthVerifier) throws Exception;
+    List<ProjectDTO> getDomainProjectsFromJira() throws Exception;
 
     /**
      * This method gets all the issues by project with jql
      * @param projectKey
-     * @param oauthVerifier
      * @return a list of issues
      * @throws Exception
      */
-    List<Issue> getIssuesByProjectKey(String projectKey, String oauthVerifier) throws Exception;
-
-    /**
-     * This method prepares all the data for one chart bugs per month
-     * @param projectKey
-     * @param oauthVerifier
-     * @return
-     * @throws Exception
-     */
-    DataBugsReportDTO getBugsCountPerMonth(String projectKey, String oauthVerifier) throws Exception;
-
-    /**
-     * This method prepares all the data for one chart bugs per month
-     * @param projectKey
-     * @param oauthVerifier
-     * @return
-     * @throws Exception
-     */
-    DataBugsReportDTO getBugsCountPerAssignee(String projectKey, String oauthVerifier) throws Exception;
+//    List<Issue> getIssuesByProjectKey(String projectKey) throws Exception;
+//
+//    /**
+//     * This method prepares all the data for one chart bugs per month
+//     * @param projectKey
+//     * @return
+//     * @throws Exception
+//     */
+//    DataBugsReportDTO getBugsCountPerMonth(String projectKey) throws Exception;
+//
+//    /**
+//     * This method prepares all the data for one chart bugs per month
+//     * @param projectKey
+//     * @return
+//     * @throws Exception
+//     */
+//    DataBugsReportDTO getBugsCountPerAssignee(String projectKey) throws Exception;
 }

@@ -3,6 +3,7 @@ package com.uom.jirareport.consumers.dto;
 import lombok.Getter;
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
@@ -27,6 +28,8 @@ public class ProjectDTO implements Serializable {
     private Map<String,String> avatarUrls;
     @JsonProperty
     private String projectTypeKey;
+    @JsonIgnore
+    private String projectCategory;
 
     @JsonAnyGetter
     public Map<String, String> getAvatarUrls() {

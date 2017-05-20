@@ -15,40 +15,10 @@ $(document).ready(function () {
             showLinkError(ERROR.URL.INVALID, true);
             return;
         }
-
-        
-        var jqxhr = $.get("/jreport/oauth?url=" + extractDomain(decodeURIComponent(url)), function (jsonRes) {
-                if (jsonRes.data) {
-                    window.location.href = jsonRes.data;
-                }
-
-                else if (jsonRes.errorMessage) {
-                    alert(jsonRes.errorMessage);
-                }
-                linkJQ.val("");
-            })
-            .done(function () {
-                getBugsBtnQ.button("reset");
-                linkJQ.removeAttr("disabled");
-            })
-            .fail(function () {
-                alert("Error");
-            });
+        window.location.href = "/mainboard/project.html?url="+url;
 
     });
 
-    function extractDomain(url) {
-        var domain;
-        //find & remove protocol (http, ftp, etc.) and get domain
-        if (url.indexOf("://") > -1) {
-            domain = url.split('/')[2];
-        }
-        else {
-            domain = url.split('/')[0];
-        }
-
-        return domain;
-    }
 
     $("#link_input").keypress(function () {
         clearUrlErrors();

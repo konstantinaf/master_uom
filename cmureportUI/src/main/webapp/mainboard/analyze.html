@@ -10,14 +10,15 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="/js/analyze.js"></script>
+
 <script>
     function ProjectBugsCtrl($scope, $http){
 
         var params = getQueryParams(location.search);
 
         var query_data = {
-            projectKey:params.projectKey,
-            oauthVerifier: params.oauth_verifier
+            url:params.url,
+            projectKey:params.projectKey
         };
 
         var config = {
@@ -39,7 +40,7 @@
             return params;
         }
 
-        $http.get('/jreport/issues/', config).then(function(response) {
+        $http.get('/jreport/monthlybugs/', config).then(function(response) {
             var data = {
                 "xData": response.data.xdata,
                 "yData": response.data.ydata
@@ -57,6 +58,7 @@
     angular.module('BugsPerMonthChart',['AngularChart'], function( $routeProvider, $locationProvider ){
         $routeProvider.when('/',{
             template: '<chart title="Project Bugs" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" subtitle="Compare your projects" style="width:50%; float:left"></chart>',
+            template: '<pie title="Browser usage" data="pieData">Placeholder for pie chart</pie>',
             controller: ProjectBugsCtrl
         })
     })
@@ -71,8 +73,8 @@
         var params = getQueryParams(location.search);
 
         var query_data = {
-            projectKey:params.projectKey,
-            oauthVerifier: params.oauth_verifier
+            url:params.url,
+            projectKey:params.projectKey
         };
 
         var config = {
@@ -109,65 +111,5 @@
 
     }
 </script>
-
-
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-
-<script>
-    Highcharts.chart('container', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'Bugs Reported Per Version for the project'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-        series: [{
-            name: 'Versions',
-            colorByPoint: true,
-            data: [{
-                name: 'Version 1.0',
-                y: 2.33,
-                sliced: false,
-                selected: false
-            }, {
-                name: 'Version 2.0',
-                y: 24.03,
-                sliced: false,
-                selected: false
-            }, {
-                name: 'Version 3.0',
-                y: 10.38,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Version 4.0',
-                y: 4.77,
-                sliced: false,
-                selected: false
-            }]
-        }]
-    });
-</script>
-
-
 </body>
 </html>
