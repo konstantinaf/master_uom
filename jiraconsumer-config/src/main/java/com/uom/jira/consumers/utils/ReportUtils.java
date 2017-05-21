@@ -138,8 +138,10 @@ public class ReportUtils {
             Map.Entry pair = (Map.Entry) it.next();
             String versionName = (String) pair.getKey();
             Double numberOfBugs = (Double) pair.getValue();
+            int[] numOfBgus = new int[1];
+            numOfBgus[0] = numberOfBugs.intValue();
 
-            SeriesDataDTO.Builder dataDTOBuilder = new SeriesDataDTO.Builder(versionName, numberOfBugs.intValue());
+            SeriesDataDTO.Builder dataDTOBuilder = new SeriesDataDTO.Builder(versionName, numOfBgus);
             dataDTO[i] = dataDTOBuilder.build();
             i++;
             it.remove(); // avoids a ConcurrentModificationException

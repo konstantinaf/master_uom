@@ -10,23 +10,22 @@ import java.io.Serializable;
 @Getter
 public class SeriesDataDTO implements Serializable{
 
-    private String name;
-    private int y;
-    private final boolean sliced = false;
-    private final boolean selected = false;
+    private String text;
+    private int[] values;
+
 
     private SeriesDataDTO(Builder builder) {
-        this.name = builder.name;
-        this.y = builder.y;
+        this.text = builder.text;
+        this.values = builder.values;
     }
 
     public static class Builder {
-        private final String name;
-        private final int y;
+        private final String text;
+        private final int[] values;
 
-        public Builder(String name, int y) {
-            this.name = name;
-            this.y = y;
+        public Builder(String text, int[] values) {
+            this.text = text;
+            this.values = values;
         }
 
         public SeriesDataDTO build() {
