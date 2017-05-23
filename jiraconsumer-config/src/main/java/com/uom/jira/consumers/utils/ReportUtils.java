@@ -3,6 +3,7 @@ package com.uom.jira.consumers.utils;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Version;
 import com.uom.jirareport.consumers.dto.*;
+import org.apache.spark.mllib.tree.impurity.Gini;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -153,6 +154,25 @@ public class ReportUtils {
 
     }
 
+    public static Map<String, Map<Integer, Double>> prepareDataForGiniRatio(Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth) {
+        Map<String, Map<Integer, Double>> bugsPerAssigneePerMonthWithGini = new HashMap<>();
+
+        for (Map.Entry<String, Map<Integer, Double>> mapEntry : bugsPerAssigneePerMonth.entrySet()) {
+            Map<Integer, Double> valuesPerAssignee = mapEntry.getValue();
+            String assigneeName = mapEntry.getKey();
+
+            double[] data = new double[12];
+            int i = 0;
+            for (Map.Entry<Integer, Double> entry : valuesPerAssignee.entrySet()) {
+                data[i] = entry.getValue();
+                i++;
+            }
+            double gini = calculateGiniCoefficient(data);
+            bugsPerAssigneePerMonthWithGini.put(assigneeName + " g.f = " + gini, valuesPerAssignee);
+        }
+        return bugsPerAssigneePerMonthWithGini;
+    }
+
 
     public static void excludeBugsWithoutAssignee(List<Issue> bugs) {
         Iterator<Issue> iter = bugs.iterator();
@@ -175,5 +195,11 @@ public class ReportUtils {
             if (issue.getAffectedVersions() == null)
                 iter.remove();
         }
+    }
+
+    private static double calculateGiniCoefficient(double[] data) {
+        double giniRatio = Gini.calculate(data, data.length);
+        System.out.println("Gini ratio is " + giniRatio);
+        return giniRatio;
     }
 }

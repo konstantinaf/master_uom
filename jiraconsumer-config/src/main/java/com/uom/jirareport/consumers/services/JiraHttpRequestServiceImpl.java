@@ -7,6 +7,7 @@ import com.uom.jira.consumers.utils.JSONUtils;
 import com.uom.jira.consumers.utils.ReportUtils;
 import com.uom.jirareport.consumers.dto.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.spark.mllib.tree.impurity.Gini;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -80,12 +81,15 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
     public DataBugsReportDTO getAssigneeBugsReport(String jiraBaseUrl, String projectKey) {
         List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth;
+        Map<String, Map<Integer, Double>> bugsPerAssigneePerMonthWithGini;
 
         ReportUtils.excludeBugsWithoutAssignee(bugs);
 
         bugsPerAssigneePerMonth = ReportUtils.countBugsPerAssigneePerMonth(bugs);
 
-        return ReportUtils.buildResponseForAssigneeBugs(bugsPerAssigneePerMonth);
+        bugsPerAssigneePerMonthWithGini = ReportUtils.prepareDataForGiniRatio(bugsPerAssigneePerMonth);
+
+        return ReportUtils.buildResponseForAssigneeBugs(bugsPerAssigneePerMonthWithGini);
     }
 
     @Override
@@ -133,5 +137,6 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
         return bugs;
     }
+
 
 }
