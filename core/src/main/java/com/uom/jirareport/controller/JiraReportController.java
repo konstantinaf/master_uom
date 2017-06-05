@@ -69,4 +69,16 @@ public class JiraReportController {
 
         return dataDTO;
     }
+
+    @RequestMapping(value="/createdresolvedbugs", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public PieReportDTO getCreatedResolvedBugs(HttpServletRequest request) throws Exception {
+
+        String jiraBaseUrl = request.getParameter("url");
+        String projectKey = request.getParameter("projectKey");
+
+        PieReportDTO dataDTO = jiraHttpRequestService.getCreatedResolvedBugs(jiraBaseUrl, projectKey);
+
+        return dataDTO;
+    }
 }

@@ -18,4 +18,6 @@ public interface JiraHttpRequestService {
     DataBugsReportDTO getAssigneeBugsReport(String jiraBaseUrl, String projectKey);
 
     PieReportDTO getVersionBugsReport(String jiraBaseUrl, String projectKey);
+
+    PieReportDTO getCreatedResolvedBugs(String jiraBaseUrl, String projectKey);
 }

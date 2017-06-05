@@ -27,33 +27,9 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
     private final static String JQL_ISSUES_BY_PROJECT = "project = '";
     private final static String FIELDS_TO_SHOW = "&fields=id,key";
     private final static String JQL_TYPE_BUG = " AND issuetype = bug ";
-    private final static String JQL_CREATED_GREATER_THAN = " AND created > ";
-    private final static String JQL_CREATED_LESS_THAN = " AND created < ";
     private final static String ISSUE_QUERY = "issue/";
     private final static String JQL_EXPAND = "?expand=names,schema";
-    private static String upLimit;
-    private static String bottomLimit;
 
-    static {
-        Calendar prevYear = Calendar.getInstance();
-        prevYear.add(Calendar.YEAR, -1);
-        prevYear.set(Calendar.MONTH, 11);
-        prevYear.set(Calendar.DAY_OF_MONTH, 31);
-        Date date = prevYear.getTime();
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        upLimit = format1.format(date);
-        System.out.println(upLimit);
-
-        prevYear = Calendar.getInstance();
-        prevYear.add(Calendar.YEAR, -1);
-        prevYear.set(Calendar.MONTH, 0);
-        prevYear.set(Calendar.DAY_OF_MONTH, 01);
-        date = prevYear.getTime();
-        format1 = new SimpleDateFormat("yyyy-MM-dd");
-        bottomLimit = format1.format(date);
-        System.out.println(bottomLimit);
-
-    }
 
     @Override
     public List<ProjectDTO> getDomainProjectFromJira(String jiraBaseUrl) {
@@ -73,7 +49,7 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
     @Override
     public DataBugsReportDTO getMonthlyBugsReport(String jiraBaseUrl, String projectKey) {
 
-        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey, false);
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
 
         Map<Integer, List<Issue>> bugsPerYear = ReportUtils.countBugsPerYear(bugs);
 
@@ -84,7 +60,7 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
     @Override
     public DataBugsReportDTO getAssigneeBugsReport(String jiraBaseUrl, String projectKey) {
-        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey, true);
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth;
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonthWithGini;
 
@@ -99,7 +75,7 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
     @Override
     public PieReportDTO getVersionBugsReport(String jiraBaseUrl, String projectKey) {
-        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey, false);
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
 
         ReportUtils.excludeBugsWithoutAffectedVersion(bugs);
 
@@ -110,18 +86,32 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
         return ReportUtils.buildDataResponseForPieChart(bugsPerVersion);
     }
 
-    private List<Issue> executeReportRequest(String jiraBaseUrl, String projectKey, boolean needsTimeLimits) {
+    @Override
+    public PieReportDTO getCreatedResolvedBugs(String jiraBaseUrl, String projectKey) {
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
+
+        Map<String, Double> resolvedStatus = ReportUtils.countBugsByResolvedStatus(bugs);
+
+        return ReportUtils.buildDataResponseForPieChart(resolvedStatus);
+
+    }
+
+    private List<Issue> executeReportRequest(String jiraBaseUrl, String projectKey) {
         List<Issue> bugs = new ArrayList<>();
 
         String response;
         try {
-            String url = jiraBaseUrl + JIRA_REST_API + SEARCH_JQL +URLEncoder.encode(JQL_ISSUES_BY_PROJECT, "UTF-8") + projectKey + URLEncoder.encode("'") + URLEncoder.encode( JQL_TYPE_BUG);
 
-            if (needsTimeLimits) {
-                url += URLEncoder.encode(JQL_CREATED_LESS_THAN) + upLimit + URLEncoder.encode(JQL_CREATED_GREATER_THAN) +bottomLimit;
-            }
-            url += FIELDS_TO_SHOW;
-            response = HttpRequestUtils.executeHttpRequest(url);
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.append(jiraBaseUrl);
+            urlBuilder.append(JIRA_REST_API);
+            urlBuilder.append(SEARCH_JQL);
+            urlBuilder.append(URLEncoder.encode(JQL_ISSUES_BY_PROJECT, "UTF-8"));
+            urlBuilder.append(projectKey);
+            urlBuilder.append(URLEncoder.encode("'") + URLEncoder.encode( JQL_TYPE_BUG));
+            urlBuilder.append(FIELDS_TO_SHOW);
+
+            response = HttpRequestUtils.executeHttpRequest(urlBuilder.toString());
 
             if (response != null) {
 

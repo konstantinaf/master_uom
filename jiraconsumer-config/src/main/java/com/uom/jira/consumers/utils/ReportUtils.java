@@ -2,6 +2,7 @@ package com.uom.jira.consumers.utils;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Version;
+import com.sun.org.apache.bcel.internal.generic.ISUB;
 import com.uom.jirareport.consumers.dto.*;
 import javafx.util.Pair;
 import org.apache.hadoop.util.hash.Hash;
@@ -100,6 +101,16 @@ public class ReportUtils {
     }
 
 
+    public static Map<String, Double> countBugsByResolvedStatus(List<Issue> bugs) {
+        Map<String, Double> resolutionMap = new HashMap<>();
+
+        bugs.stream()
+                .collect(Collectors.groupingBy(bug -> bug.getResolution() == null ? "None" : bug.getResolution().getName(), Collectors.counting()))
+                .forEach((id, count) -> resolutionMap.put(id, Double.parseDouble(String.valueOf(count))));
+        return resolutionMap;
+
+
+    }
     public static Map<String, Map<Integer, Double>> countBugsPerAssigneePerMonth(List<Issue> bugs) {
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth = new HashMap<>();
 
@@ -107,21 +118,35 @@ public class ReportUtils {
                 bugs.stream().collect(Collectors.groupingBy(bug -> bug.getAssignee().getName()));
 
         Iterator it = mapByAssignee.entrySet().iterator();
+
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
 
-            System.out.println(pair.getKey() + " = " + pair.getValue());
+            System.out.println("Assignee Name: " + pair.getKey() + " = " + pair.getValue());
 
-            List<Issue> assigneeBugs = (List<Issue>) pair.getValue();
+            List<Issue> bugsPerAssignee = (List<Issue>) pair.getValue();
 
-            Map<Integer, Double> bugsPerMonth = new HashMap<>();
+            /*
+            * bugs per assignee per year
+             */
+            Map<Integer, List<Issue>> yearlyBugs = countBugsPerYear(bugsPerAssignee);
+            for (Map.Entry<Integer, List<Issue>> entry : yearlyBugs.entrySet())
+            {
+                int year = entry.getKey();
 
-            initializeBugsPerMonthMap(bugsPerMonth);
+                List<Issue> bugsPerYearForAssignee = entry.getValue();
 
-            countBugsPerMonth(assigneeBugs, bugsPerMonth);
+                Map<Integer, Double> bugsPerMonth = new HashMap<>();
+                /**
+                * list of bugs per month
+                    */
+                initializeBugsPerMonthMap(bugsPerMonth);
 
-            bugsPerAssigneePerMonth.put((String) pair.getKey(), bugsPerMonth);
+                countBugsPerMonth(bugsPerYearForAssignee, bugsPerMonth);
 
+                bugsPerAssigneePerMonth.put((String) pair.getKey() + " year = " + year, bugsPerMonth);
+
+            }
             it.remove(); // avoids a ConcurrentModificationException
         }
 

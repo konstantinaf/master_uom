@@ -128,7 +128,7 @@
 </head>
 
 <body>
-<div id='myChart' ng-controller="VersionCtrl" style="float:left"></div>
+<div id='myChart' ng-controller="VersionCtrl" style="width:50%; float:left"></div>
 <script>
 
     function VersionCtrl() {
@@ -210,8 +210,102 @@
             zingchart.render({
                 id: 'myChart',
                 data: myConfig,
-                height: 400,
-                width: 400
+                height: 500,
+                width: 500
+            });
+
+        });
+
+    }
+
+
+
+</script>
+
+<div id='createdChart' ng-controller="CreatedResolvedCtrl" style="width:50%; float:left"></div>
+<script>
+
+    function CreatedResolvedCtrl() {
+        var params = getQueryParams(location.search);
+
+        function getQueryParams(qs) {
+            qs = qs.split('+').join(' ');
+
+            var params = {},
+                tokens,
+                re = /[?&]?([^=]+)=([^&]*)/g;
+
+            while (tokens = re.exec(qs)) {
+                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+            }
+
+            return params;
+        }
+
+        $.get("/jreport/createdresolvedbugs/?url=" + params.url + "&projectKey=" +params.projectKey, function(response){
+            var data = {
+                "pieData": response.data
+
+            };
+
+
+            var myConfig = {
+                type: "pie",
+                plot: {
+                    borderColor: "#2B313B",
+                    borderWidth: 5,
+                    // slice: 90,
+                    valueBox: {
+                        placement: 'out',
+                        text: '%t\n%npv%',
+                        fontFamily: "Open Sans"
+                    },
+                    tooltip: {
+                        fontSize: '18',
+                        fontFamily: "Open Sans",
+                        padding: "5 10",
+                        text: "%npv%"
+                    },
+                    animation: {
+                        effect: 2,
+                        method: 5,
+                        speed: 500,
+                        sequence: 1
+                    }
+                },
+                source: {
+                    text: 'gs.statcounter.com',
+                    fontColor: "#8e99a9",
+                    fontFamily: "Open Sans"
+                },
+                title: {
+                    fontColor: "#fff",
+                    text: 'Resolution',
+                    align: "left",
+                    offsetX: 10,
+                    fontFamily: "Open Sans",
+                    fontSize: 25
+                },
+                subtitle: {
+                    offsetX: 10,
+                    offsetY: 10,
+                    fontColor: "#8e99a9",
+                    fontFamily: "Open Sans",
+                    fontSize: "16",
+                    text: 'May 2016',
+                    align: "left"
+                },
+                plotarea: {
+                    margin: "20 0 0 0"
+                },
+                series: data.pieData
+            };
+
+            zingchart.render({
+                id: 'createdChart',
+                data: myConfig,
+                height: 500,
+                width: 500
             });
 
         });
