@@ -3,7 +3,10 @@ package com.uom.jira.consumers.utils;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Version;
 import com.uom.jirareport.consumers.dto.*;
+import javafx.util.Pair;
+import org.apache.hadoop.util.hash.Hash;
 import org.apache.spark.mllib.tree.impurity.Gini;
+import scala.Int;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,12 +16,34 @@ import java.util.stream.Collectors;
  */
 public class ReportUtils {
 
-    public static void initializeBugsPerMonthMap(Map<Integer, Double> bugsPerMonth) {
-        //for each month initially put 0 bugs
+    public static void initializeBugsPerMonthPerYearMap(Map<Integer, Double> bugsPerMonth) {
+
         for (int i = 1; i < 13; i++) {
             bugsPerMonth.put(i, new Double(0));
         }
+
     }
+//
+//    public static Map<Integer, Map<Integer, Double>> sortBugsPerMonthMapByMonthNumber(Map<Integer, Map<Integer,Double>> bugsPerMonthPerYear) {
+//
+//        Map<Integer, Map<Integer, Double>> sortedMap = new HashMap<>();
+//        Map<Integer, Double> monthlyCount = new HashMap<>();
+//        for (Map.Entry<Integer, Map<Integer, Double>> entry : bugsPerMonthPerYear.entrySet()) {
+//
+//            int year = entry.getKey();
+//            Map<Integer, Double> countBugsPerMonth  = entry.getValue();
+//
+//            Map<Integer, Double> map = new TreeMap<>(countBugsPerMonth);
+//
+//            for (Map.Entry<Integer, Double> m : map.entrySet()) {
+//                monthlyCount.put(m.getKey(), m.getValue());
+//            }
+//            sortedMap.put(year, monthlyCount);
+//
+//        }
+//        return sortedMap;
+//
+//    }
 
     public static void sortBugsPerMonthMapByMonthNumber(Map<Integer, Double> bugsPerMonth, List<Double> dataList) {
         Map<Integer, Double> map = new TreeMap<>(bugsPerMonth);
@@ -38,20 +63,56 @@ public class ReportUtils {
         return dataArray;
     }
 
-    public static DataBugsReportDTO buildDataResponseForChart(String projectKey, List<Double> dataList) {
-        YDataDTO.Builder bugsPerMonthDTOBuilder = new YDataDTO.Builder(projectKey, convertListToDataArray(dataList));
+    public static DataBugsReportDTO buildDataResponseForChart(Map<Integer, Map<Integer, Double>> sortedMapCountBugsPerMonthPerYear) {
+        int i=0;
+        YDataDTO[] bugsPerMonthDTOs = new YDataDTO[sortedMapCountBugsPerMonthPerYear.size()];
+        for (Map.Entry<Integer, Map<Integer, Double>> entry : sortedMapCountBugsPerMonthPerYear.entrySet()) {
+            Integer year = entry.getKey();
+            Map<Integer, Double> bugsPerMonthForYear = entry.getValue();
 
-        YDataDTO[] bugsPerMonthDTOs = new YDataDTO[1];
-        bugsPerMonthDTOs[0] = bugsPerMonthDTOBuilder.build();
+            List<Double> dataList = bugsPerMonthForYear.entrySet().stream()
+                    .map(x -> x.getValue())
+                    .collect(Collectors.toList());
+
+            YDataDTO.Builder bugsPerMonthDTOBuilder = new YDataDTO.Builder(String.valueOf(year), convertListToDataArray(dataList));
+            bugsPerMonthDTOs[i] = bugsPerMonthDTOBuilder.build();
+            i++;
+        }
         DataBugsReportDTO.DataDTOBuilder builder = new DataBugsReportDTO.DataDTOBuilder(bugsPerMonthDTOs);
+
+
+
+
 
         return builder.build();
     }
 
-    public static void countBugsPerMonth(List<Issue> bugs, Map<Integer, Double> bugsPerMonth) {
-        bugs.stream()
-                .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
-                .forEach((id, count) -> bugsPerMonth.put(id, Double.parseDouble(String.valueOf(count))));
+    public static Map<Integer, List<Issue>> countBugsPerYear(List<Issue> bugs) {
+       return bugs.stream().collect(Collectors.groupingBy(bug -> bug.getCreationDate().getYear()));
+    }
+
+    public static Map<Integer, Map<Integer, Double>> countBugsPerMonthPerYear(Map<Integer, List<Issue>> bugsPerYear) {
+        Map<Integer, Map<Integer, Double>> bugsPerMonthPerYear = new HashMap<>();
+
+        for (Map.Entry<Integer, List<Issue>> entry : bugsPerYear.entrySet())
+        {
+            int year = entry.getKey();
+
+            List<Issue> yearlyBugs = entry.getValue();
+
+            Map<Integer, Double> bugsPerMonth = new HashMap<>();
+
+            initializeBugsPerMonthPerYearMap(bugsPerMonth);
+            //Create year map
+            yearlyBugs.stream()
+                    .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
+                    .forEach((id, count) -> bugsPerMonth.put(id, Double.parseDouble(String.valueOf(count))));
+           //count bugs per year per month
+            bugsPerMonthPerYear.put(year, bugsPerMonth);
+
+        }
+        return bugsPerMonthPerYear;
+
     }
 
     public static Map<String, Map<Integer, Double>> countBugsPerAssigneePerMonth(List<Issue> bugs) {
@@ -70,9 +131,7 @@ public class ReportUtils {
 
             Map<Integer, Double> bugsPerMonth = new HashMap<>();
 
-            initializeBugsPerMonthMap(bugsPerMonth);
-
-            countBugsPerMonth(assigneeBugs, bugsPerMonth);
+            countBugsPerMonthPerYear(assigneeBugs, bugsPerMonth);
 
             bugsPerAssigneePerMonth.put((String) pair.getKey(), bugsPerMonth);
 

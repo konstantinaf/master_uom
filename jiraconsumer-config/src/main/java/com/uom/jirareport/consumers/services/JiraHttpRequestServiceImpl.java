@@ -7,7 +7,6 @@ import com.uom.jira.consumers.utils.JSONUtils;
 import com.uom.jira.consumers.utils.ReportUtils;
 import com.uom.jirareport.consumers.dto.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.spark.mllib.tree.impurity.Gini;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +26,32 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
     private static final String SEARCH_JQL = "search?jql=";
     private final static String JQL_ISSUES_BY_PROJECT = "project = '";
     private final static String FIELDS_TO_SHOW = "&fields=id,key";
-    private final static String JQL_TYPE_BUG = " AND issuetype = bug AND statusCategory = Done ";
-    private final static String JQL_CREATED = " AND created > ";
+    private final static String JQL_TYPE_BUG = " AND issuetype = bug ";
+    private final static String JQL_CREATED_GREATER_THAN = " AND created > ";
+    private final static String JQL_CREATED_LESS_THAN = " AND created < ";
     private final static String ISSUE_QUERY = "issue/";
     private final static String JQL_EXPAND = "?expand=names,schema";
-    private static String lastDayOfLastYear;
+    private static String upLimit;
+    private static String bottomLimit;
 
     static {
         Calendar prevYear = Calendar.getInstance();
-        prevYear.add(Calendar.YEAR, -2);
+        prevYear.add(Calendar.YEAR, -1);
         prevYear.set(Calendar.MONTH, 11);
         prevYear.set(Calendar.DAY_OF_MONTH, 31);
         Date date = prevYear.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        lastDayOfLastYear = format1.format(date);
-        System.out.println(lastDayOfLastYear);
+        upLimit = format1.format(date);
+        System.out.println(upLimit);
+
+        prevYear = Calendar.getInstance();
+        prevYear.add(Calendar.YEAR, -1);
+        prevYear.set(Calendar.MONTH, 01);
+        prevYear.set(Calendar.DAY_OF_MONTH, 01);
+        date = prevYear.getTime();
+        format1 = new SimpleDateFormat("yyyy-MM-dd");
+        bottomLimit = format1.format(date);
+        System.out.println(bottomLimit);
 
     }
 
@@ -62,28 +72,25 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
     @Override
     public DataBugsReportDTO getMonthlyBugsReport(String jiraBaseUrl, String projectKey) {
-        Map<Integer, Double> bugsPerMonth = new HashMap<>();
 
-        List<Double> dataList = new ArrayList<>();
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey, false);
 
-        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
+        Map<Integer, List<Issue>> bugsPerYear = ReportUtils.countBugsPerYear(bugs);
 
-        ReportUtils.initializeBugsPerMonthMap(bugsPerMonth);
+        Map<Integer, Map<Integer, Double>> bugsPerMonthPerYear = ReportUtils.countBugsPerMonthPerYear(bugsPerYear);
 
-        ReportUtils.countBugsPerMonth(bugs, bugsPerMonth);
-
-        ReportUtils.sortBugsPerMonthMapByMonthNumber(bugsPerMonth, dataList);
-
-        return ReportUtils.buildDataResponseForChart(projectKey, dataList);
+        return ReportUtils.buildDataResponseForChart(bugsPerMonthPerYear);
     }
 
     @Override
     public DataBugsReportDTO getAssigneeBugsReport(String jiraBaseUrl, String projectKey) {
-        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey, true);
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth;
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonthWithGini;
 
         ReportUtils.excludeBugsWithoutAssignee(bugs);
+
+        Map<Integer, List<Issue>> bugsPerYear = ReportUtils.countBugsPerYear(bugs);
 
         bugsPerAssigneePerMonth = ReportUtils.countBugsPerAssigneePerMonth(bugs);
 
@@ -94,7 +101,7 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
     @Override
     public PieReportDTO getVersionBugsReport(String jiraBaseUrl, String projectKey) {
-        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey);
+        List<Issue> bugs = this.executeReportRequest(jiraBaseUrl, projectKey, false);
 
         ReportUtils.excludeBugsWithoutAffectedVersion(bugs);
 
@@ -105,12 +112,18 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
         return ReportUtils.buildDataResponseForPieChart(bugsPerVersion);
     }
 
-    private List<Issue> executeReportRequest(String jiraBaseUrl, String projectKey) {
+    private List<Issue> executeReportRequest(String jiraBaseUrl, String projectKey, boolean needsTimeLimits) {
         List<Issue> bugs = new ArrayList<>();
 
         String response;
         try {
-            response = HttpRequestUtils.executeHttpRequest((jiraBaseUrl + JIRA_REST_API + SEARCH_JQL +URLEncoder.encode(JQL_ISSUES_BY_PROJECT, "UTF-8") + projectKey + URLEncoder.encode("'") + URLEncoder.encode( JQL_TYPE_BUG) + URLEncoder.encode(JQL_CREATED) + lastDayOfLastYear + FIELDS_TO_SHOW));
+            String url = jiraBaseUrl + JIRA_REST_API + SEARCH_JQL +URLEncoder.encode(JQL_ISSUES_BY_PROJECT, "UTF-8") + projectKey + URLEncoder.encode("'") + URLEncoder.encode( JQL_TYPE_BUG);
+
+            if (needsTimeLimits) {
+                url += URLEncoder.encode(JQL_CREATED_LESS_THAN) + upLimit + URLEncoder.encode(JQL_CREATED_GREATER_THAN) +bottomLimit;
+            }
+            url += FIELDS_TO_SHOW;
+            response = HttpRequestUtils.executeHttpRequest(url);
 
             if (response != null) {
 
