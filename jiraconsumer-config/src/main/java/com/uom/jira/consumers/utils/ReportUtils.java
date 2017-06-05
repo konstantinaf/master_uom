@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class ReportUtils {
 
-    public static void initializeBugsPerMonthPerYearMap(Map<Integer, Double> bugsPerMonth) {
+    public static void initializeBugsPerMonthMap(Map<Integer, Double> bugsPerMonth) {
 
         for (int i = 1; i < 13; i++) {
             bugsPerMonth.put(i, new Double(0));
@@ -80,7 +80,7 @@ public class ReportUtils {
 
             Map<Integer, Double> bugsPerMonth = new HashMap<>();
 
-            initializeBugsPerMonthPerYearMap(bugsPerMonth);
+            initializeBugsPerMonthMap(bugsPerMonth);
             //Create year map
             yearlyBugs.stream()
                     .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
@@ -115,6 +115,8 @@ public class ReportUtils {
             List<Issue> assigneeBugs = (List<Issue>) pair.getValue();
 
             Map<Integer, Double> bugsPerMonth = new HashMap<>();
+
+            initializeBugsPerMonthMap(bugsPerMonth);
 
             countBugsPerMonth(assigneeBugs, bugsPerMonth);
 

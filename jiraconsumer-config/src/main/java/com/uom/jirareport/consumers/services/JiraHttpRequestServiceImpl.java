@@ -46,7 +46,7 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
         prevYear = Calendar.getInstance();
         prevYear.add(Calendar.YEAR, -1);
-        prevYear.set(Calendar.MONTH, 01);
+        prevYear.set(Calendar.MONTH, 0);
         prevYear.set(Calendar.DAY_OF_MONTH, 01);
         date = prevYear.getTime();
         format1 = new SimpleDateFormat("yyyy-MM-dd");
