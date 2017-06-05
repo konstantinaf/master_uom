@@ -23,28 +23,6 @@ public class ReportUtils {
         }
 
     }
-//
-//    public static Map<Integer, Map<Integer, Double>> sortBugsPerMonthMapByMonthNumber(Map<Integer, Map<Integer,Double>> bugsPerMonthPerYear) {
-//
-//        Map<Integer, Map<Integer, Double>> sortedMap = new HashMap<>();
-//        Map<Integer, Double> monthlyCount = new HashMap<>();
-//        for (Map.Entry<Integer, Map<Integer, Double>> entry : bugsPerMonthPerYear.entrySet()) {
-//
-//            int year = entry.getKey();
-//            Map<Integer, Double> countBugsPerMonth  = entry.getValue();
-//
-//            Map<Integer, Double> map = new TreeMap<>(countBugsPerMonth);
-//
-//            for (Map.Entry<Integer, Double> m : map.entrySet()) {
-//                monthlyCount.put(m.getKey(), m.getValue());
-//            }
-//            sortedMap.put(year, monthlyCount);
-//
-//        }
-//        return sortedMap;
-//
-//    }
-
     public static void sortBugsPerMonthMapByMonthNumber(Map<Integer, Double> bugsPerMonth, List<Double> dataList) {
         Map<Integer, Double> map = new TreeMap<>(bugsPerMonth);
 
@@ -115,6 +93,13 @@ public class ReportUtils {
 
     }
 
+    public static void countBugsPerMonth(List<Issue> bugs, Map<Integer, Double> bugsPerMonth) {
+        bugs.stream()
+                .collect(Collectors.groupingBy(bug -> bug.getCreationDate().getMonthOfYear(), Collectors.counting()))
+                .forEach((id, count) -> bugsPerMonth.put(id, Double.parseDouble(String.valueOf(count))));
+    }
+
+
     public static Map<String, Map<Integer, Double>> countBugsPerAssigneePerMonth(List<Issue> bugs) {
         Map<String, Map<Integer, Double>> bugsPerAssigneePerMonth = new HashMap<>();
 
@@ -131,7 +116,7 @@ public class ReportUtils {
 
             Map<Integer, Double> bugsPerMonth = new HashMap<>();
 
-            countBugsPerMonthPerYear(assigneeBugs, bugsPerMonth);
+            countBugsPerMonth(assigneeBugs, bugsPerMonth);
 
             bugsPerAssigneePerMonth.put((String) pair.getKey(), bugsPerMonth);
 

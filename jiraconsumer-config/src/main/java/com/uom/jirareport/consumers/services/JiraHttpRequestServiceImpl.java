@@ -90,8 +90,6 @@ public class JiraHttpRequestServiceImpl implements JiraHttpRequestService {
 
         ReportUtils.excludeBugsWithoutAssignee(bugs);
 
-        Map<Integer, List<Issue>> bugsPerYear = ReportUtils.countBugsPerYear(bugs);
-
         bugsPerAssigneePerMonth = ReportUtils.countBugsPerAssigneePerMonth(bugs);
 
         bugsPerAssigneePerMonthWithGini = ReportUtils.prepareDataForGiniRatio(bugsPerAssigneePerMonth);
